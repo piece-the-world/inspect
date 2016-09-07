@@ -3,23 +3,9 @@
  */
 package com.growingio.agent.compile;
 
-import com.growingio.agent.compile.C;
-import com.growingio.agent.compile.D;
-import com.growingio.agent.compile.G;
-import com.growingio.agent.compile.M;
-import com.growingio.agent.compile.S;
-import com.growingio.agent.compile.T;
-import com.growingio.agent.compile.a;
-import com.growingio.agent.compile.aa;
-import com.growingio.agent.compile.i;
-import com.growingio.agent.compile.m;
-import com.growingio.agent.compile.n;
-import com.growingio.agent.compile.r;
-import com.growingio.agent.compile.s;
-import com.growingio.agent.compile.v;
-import com.growingio.d.a.a.o;
 import com.growingio.d.a.f;
 import com.growingio.d.a.u;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,22 +19,15 @@ import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
 import java.lang.management.ManagementFactory;
 import java.lang.reflect.Field;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.security.CodeSource;
-import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.jar.Attributes;
 import java.util.jar.JarInputStream;
-import java.util.jar.Manifest;
 
 public class VdsRewriterAgent {
     private static final String b = "com/android/ant/DexExecTask";
@@ -75,7 +54,11 @@ public class VdsRewriterAgent {
         VdsRewriterAgent.premain(string, instrumentation);
     }
 
-    public static String getVersion() {
+    public static String getVersion()
+
+    `
+
+    {
         return VERSION;
     }
 

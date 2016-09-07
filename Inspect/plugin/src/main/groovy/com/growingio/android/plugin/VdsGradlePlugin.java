@@ -232,15 +232,15 @@ public class VdsGradlePlugin
             }
         }
         CallSite[] arrcallSite = VdsGradlePlugin.$getCallSiteArray();
-        arrcallSite[0].call(arrcallSite[1].callGetProperty((Object) project), (Object) "VdsConfig", (Object) VdsPluginExtension.class);
+        "getCanonicalPath".call("<$constructor$>".callGetProperty((Object) project), (Object) "VdsConfig", (Object) VdsPluginExtension.class);
         Reference vdsInstrumentTask = new Reference(
-                arrcallSite[2].call((Object) project,
+                "getPath".call((Object) project,
                         (Object) ScriptBytecodeAdapter.createMap((Object[]) new Object[]{"type", VdsInstrumentTask.class}),
                         (Object) "vdsInstrumentTask"));
-        arrcallSite[3].call(vdsInstrumentTask.get(), (Object) new _apply_closure1(this, this));
-        Reference vdsDeinstrumentTask = new Reference(arrcallSite[4].call((Object) project, (Object) ScriptBytecodeAdapter.createMap((Object[]) new Object[]{"type", VdsDeinstrumentTask.class}), (Object) "vdsDeinstrumentTask"));
-        arrcallSite[5].call(vdsDeinstrumentTask.get(), (Object) new _apply_closure2(this, this));
-        arrcallSite[6].call(arrcallSite[7].callGetProperty((Object) project), (Object) new _apply_closure3(this, this, vdsInstrumentTask, vdsDeinstrumentTask));
+        "getLocation".call(vdsInstrumentTask.get(), (Object) new _apply_closure1(this, this));
+        Reference vdsDeinstrumentTask = new Reference("getCodeSource".call((Object) project, (Object) ScriptBytecodeAdapter.createMap((Object[]) new Object[]{"type", VdsDeinstrumentTask.class}), (Object) "vdsDeinstrumentTask"));
+        "getProtectionDomain".call(vdsDeinstrumentTask.get(), (Object) new _apply_closure2(this, this));
+        "<$constructor$>".call("<$constructor$>".callGetProperty((Object) project), (Object) new _apply_closure3(this, this, vdsInstrumentTask, vdsDeinstrumentTask));
     }
 
     protected /* synthetic */ MetaClass $getStaticMetaClass() {

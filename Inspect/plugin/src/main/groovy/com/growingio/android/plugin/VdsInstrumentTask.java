@@ -101,6 +101,14 @@ public class VdsInstrumentTask
         return ShortTypeHandling.castToString((Object) arrcallSite[20].call((Object) "instrument=1;", (Object) this.getUserArgs()));
     }
 
+    protected String getAgentArgs() {
+        CallSite[] arrcallSite = VdsInstrumentTask.$getCallSiteArray();
+        if (__$stMC || BytecodeInterface8.disabledStandardMetaClass()) {
+            return ShortTypeHandling.castToString((Object) "plus".call((Object) "instrument=1;", "getUserArgs".callCurrent((GroovyObject) this)));
+        }
+        return ShortTypeHandling.castToString((Object) "plus".call((Object) "instrument=1;", (Object) this.getUserArgs()));
+    }
+
     @TaskAction
     public void addVdsAgent() {
         Object object;
