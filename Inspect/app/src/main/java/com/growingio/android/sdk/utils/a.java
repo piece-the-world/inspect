@@ -92,26 +92,30 @@ public class a {
     }
 
     public static boolean a(Object object) {
-        return c && object instanceof ViewPager;
+        return a && object instanceof RecyclerView || d && object.getClass() == k;
     }
 
     public static boolean b(Object object) {
-        return e && object instanceof SwipeRefreshLayout;
+        return c && object instanceof ViewPager;
     }
 
     public static boolean c(Object object) {
-        return f && object instanceof WebView;
+        return e && object instanceof SwipeRefreshLayout;
     }
 
     public static boolean d(Object object) {
-        return f && object instanceof WebChromeClient;
+        return f && object instanceof WebView;
     }
 
     public static boolean e(Object object) {
-        return h && object instanceof FragmentActivity;
+        return f && object instanceof WebChromeClient;
     }
 
     public static boolean f(Object object) {
+        return h && object instanceof FragmentActivity;
+    }
+
+    public static boolean g(Object object) {
         return i && object instanceof Fragment;
     }
 
@@ -132,7 +136,7 @@ public class a {
             e = true;
         }
         catch (ClassNotFoundException var0_3) {
-            var0_3.printStackTrace();
+            // empty catch block
         }
         try {
             Class.forName("android.support.v4.view.ViewPager");

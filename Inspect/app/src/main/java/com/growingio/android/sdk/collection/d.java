@@ -1,27 +1,23 @@
 /*
  * Decompiled with CFR 0_115.
- * 
- * Could not load the following classes:
- *  android.app.Activity
- *  android.app.Fragment
- *  android.support.v4.app.Fragment
  */
 package com.growingio.android.sdk.collection;
 
-import android.app.Activity;
-import android.app.Fragment;
+import com.growingio.android.sdk.collection.c;
 
-public interface d {
-    public void a(Activity var1);
+class d
+implements Runnable {
+    final /* synthetic */ c a;
 
-    public void b(Activity var1);
+    d(c c2) {
+        this.a = c2;
+    }
 
-    public void a(Fragment var1);
-
-    public void a(android.support.v4.app.Fragment var1);
-
-    public void b(Fragment var1);
-
-    public void b(android.support.v4.app.Fragment var1);
+    @Override
+    public void run() {
+        if (c.a(this.a) != null) {
+            c.a(this.a).clear();
+        }
+    }
 }
 

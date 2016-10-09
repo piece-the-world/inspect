@@ -1,34 +1,24 @@
 /*
  * Decompiled with CFR 0_115.
- * 
- * Could not load the following classes:
- *  android.view.View
- *  android.widget.AdapterView
  */
 package com.growingio.android.sdk.circle;
 
-import android.view.View;
-import android.widget.AdapterView;
-import com.growingio.android.sdk.b.i;
+import com.growingio.android.sdk.circle.HybridEventEditDialog;
 import com.growingio.android.sdk.circle.a;
-import java.util.Comparator;
 
 class d
-implements Comparator {
-    final /* synthetic */ a a;
+implements Runnable {
+    final /* synthetic */ HybridEventEditDialog a;
+    final /* synthetic */ a b;
 
-    d(a a2) {
-        this.a = a2;
+    d(a a2, HybridEventEditDialog hybridEventEditDialog) {
+        this.b = a2;
+        this.a = hybridEventEditDialog;
     }
 
-    public int a(i i2, i i3) {
-        int n2 = i2.c instanceof AdapterView ? -1 : 1;
-        int n3 = i3.c instanceof AdapterView ? -1 : 1;
-        return n3 - n2;
-    }
-
-    public /* synthetic */ int compare(Object object, Object object2) {
-        return this.a((i)object, (i)object2);
+    @Override
+    public void run() {
+        a.a(this.b, this.a, HybridEventEditDialog.class.getName());
     }
 }
 

@@ -3,22 +3,19 @@
  */
 package com.growingio.android.sdk.collection;
 
-import com.growingio.android.sdk.collection.q;
-import com.growingio.android.sdk.collection.x;
-import com.growingio.android.sdk.collection.y;
+import com.growingio.android.sdk.collection.t;
 
 class z
 implements Runnable {
-    final /* synthetic */ y a;
+    final /* synthetic */ t a;
 
-    z(y y2) {
-        this.a = y2;
+    z(t t2) {
+        this.a = t2;
     }
 
     @Override
     public void run() {
-        q.i();
-        x.a(this.a.a);
+        t.a(this.a, false);
     }
 }
 

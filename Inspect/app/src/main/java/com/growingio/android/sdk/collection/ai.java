@@ -2,30 +2,24 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.view.View
- *  android.webkit.WebView
+ *  android.content.BroadcastReceiver
+ *  android.content.Context
+ *  android.content.Intent
  */
 package com.growingio.android.sdk.collection;
 
-import android.view.View;
-import android.webkit.WebView;
-import com.growingio.android.sdk.b.i;
-import com.growingio.android.sdk.collection.ag;
-import com.growingio.android.sdk.collection.ah;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import com.growingio.android.sdk.collection.c;
 
 class ai
-implements Runnable {
-    final /* synthetic */ i a;
-    final /* synthetic */ ah b;
-
-    ai(ah ah2, i i2) {
-        this.b = ah2;
-        this.a = i2;
+extends BroadcastReceiver {
+    ai() {
     }
 
-    @Override
-    public void run() {
-        ((WebView)this.a.c).loadUrl(ag.a(this.b.a));
+    public void onReceive(Context context, Intent intent) {
+        c.k().q();
     }
 }
 

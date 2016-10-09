@@ -37,8 +37,8 @@ extends g {
     int d;
     public long e;
 
-    public c(Activity activity, String string, long l2, boolean bl2) {
-        this.g = this.g().a(activity, bl2);
+    public c(Activity activity, String string, long l2) {
+        this.g = this.h().b(activity);
         String string2 = this.c = activity.getResources().getConfiguration().orientation == 1 ? "PORTRAIT" : "LANDSCAPE";
         if (!TextUtils.isEmpty((CharSequence)activity.getTitle())) {
             this.b = activity.getTitle().toString();
@@ -52,24 +52,33 @@ extends g {
         this.g = string;
         this.e = l2;
         this.b = string2;
+        Object object = this.h().h();
+        if (object == null) {
+            object = this.h().i();
+        }
+        if (object != null) {
+            this.d = object.hashCode();
+        }
     }
 
     @TargetApi(value=11)
     public c(Fragment fragment, String string, long l2) {
-        this(fragment.getActivity(), string, l2, true);
+        this(fragment.getActivity(), string, l2);
         this.d = fragment.hashCode();
     }
 
     public c(android.support.v4.app.Fragment fragment, String string, long l2) {
-        this((Activity)fragment.getActivity(), string, l2, true);
+        this((Activity)fragment.getActivity(), string, l2);
         this.d = fragment.hashCode();
     }
 
     @Override
     public JSONObject b() {
-        JSONObject jSONObject = this.i();
+        JSONObject jSONObject = this.j();
         try {
             jSONObject.put("t", (Object)"page");
+            this.c(jSONObject);
+            this.d(jSONObject);
             this.a(jSONObject);
             this.b(jSONObject);
             jSONObject.put("tm", this.e);
@@ -77,7 +86,7 @@ extends g {
                 jSONObject.put("rp", (Object)this.a);
             }
             jSONObject.put("o", (Object)this.c);
-            jSONObject.put("v", (Object)this.b);
+            jSONObject.put("tl", (Object)this.b);
         }
         catch (JSONException var2_2) {
             LogUtil.d("GIO.VPAEvent", "generate page event error", (Throwable)var2_2);
@@ -85,13 +94,14 @@ extends g {
         return jSONObject;
     }
 
-    private void b(JSONObject jSONObject) {
-        SparseArray sparseArray = (SparseArray)this.g().a().get(this.d);
+    private void d(JSONObject jSONObject) {
+        SparseArray sparseArray = (SparseArray)this.h().a().get(this.d);
         if (sparseArray != null) {
             try {
                 for (int i2 = 0; i2 < sparseArray.size(); ++i2) {
-                    String string = i2 == 0 ? "pg" : "ps" + i2;
-                    jSONObject.put(string, sparseArray.get(i2));
+                    int n2 = sparseArray.keyAt(i2);
+                    String string = n2 == 0 ? "pg" : "ps" + n2;
+                    jSONObject.put(string, sparseArray.get(n2));
                 }
             }
             catch (JSONException var3_4) {

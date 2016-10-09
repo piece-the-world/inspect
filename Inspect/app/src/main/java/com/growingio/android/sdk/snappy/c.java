@@ -51,27 +51,27 @@ implements Checksum {
     }
 
     @Override
-    public void update(byte[] arrby, int n2, int n3) {
-        int n4 = this.i;
-        while (n3 > 7) {
-            int n5 = arrby[n2++] ^ n4;
-            int n6 = arrby[n2++] ^ (n4 >>>= 8);
-            int n7 = arrby[n2++] ^ (n4 >>>= 8);
-            int n8 = arrby[n2++] ^ (n4 >>>= 8);
-            n4 = h[n5 & 255] ^ g[n6 & 255] ^ (f[n7 & 255] ^ e[n8 & 255]);
-            n4 ^= d[arrby[n2++] & 255] ^ c[arrby[n2++] & 255] ^ (b[arrby[n2++] & 255] ^ a[arrby[n2++] & 255]);
-            n3 -= 8;
+    public void update(byte[] b2, int off, int len) {
+        int n2 = this.i;
+        while (len > 7) {
+            int n3 = b2[off++] ^ n2;
+            int n4 = b2[off++] ^ (n2 >>>= 8);
+            int n5 = b2[off++] ^ (n2 >>>= 8);
+            int n6 = b2[off++] ^ (n2 >>>= 8);
+            n2 = h[n3 & 255] ^ g[n4 & 255] ^ (f[n5 & 255] ^ e[n6 & 255]);
+            n2 ^= d[b2[off++] & 255] ^ c[b2[off++] & 255] ^ (b[b2[off++] & 255] ^ a[b2[off++] & 255]);
+            len -= 8;
         }
-        while (n3 > 0) {
-            n4 = n4 >>> 8 ^ a[(n4 ^ arrby[n2++]) & 255];
-            --n3;
+        while (len > 0) {
+            n2 = n2 >>> 8 ^ a[(n2 ^ b2[off++]) & 255];
+            --len;
         }
-        this.i = n4;
+        this.i = n2;
     }
 
     @Override
-    public void update(int n2) {
-        this.i = this.i >>> 8 ^ a[(this.i ^ n2) & 255];
+    public void update(int b2) {
+        this.i = this.i >>> 8 ^ a[(this.i ^ b2) & 255];
     }
 }
 

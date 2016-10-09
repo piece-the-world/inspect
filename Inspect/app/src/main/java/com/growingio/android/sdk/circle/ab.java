@@ -2,25 +2,29 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.content.DialogInterface
- *  android.content.DialogInterface$OnClickListener
+ *  android.app.Activity
  */
 package com.growingio.android.sdk.circle;
 
-import android.content.DialogInterface;
-import com.growingio.android.sdk.circle.aa;
-import com.growingio.android.sdk.circle.j;
+import android.app.Activity;
+import com.growingio.android.sdk.circle.ac;
+import com.growingio.android.sdk.circle.k;
+import com.growingio.android.sdk.utils.i;
 
 class ab
-implements DialogInterface.OnClickListener {
-    final /* synthetic */ aa a;
+implements Runnable {
+    final /* synthetic */ k a;
 
-    ab(aa aa2) {
-        this.a = aa2;
+    ab(k k2) {
+        this.a = k2;
     }
 
-    public void onClick(DialogInterface dialogInterface, int n2) {
-        j.e().k();
+    @Override
+    public void run() {
+        if (this.a.d() == null || this.a.d().isFinishing()) {
+            return;
+        }
+        i.a(new ac(this));
     }
 }
 

@@ -2,57 +2,72 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  org.json.JSONException
- *  org.json.JSONObject
+ *  android.annotation.TargetApi
+ *  android.content.ContentResolver
+ *  android.content.Context
+ *  android.content.SharedPreferences
+ *  android.content.SharedPreferences$Editor
+ *  android.provider.Settings
+ *  android.provider.Settings$Secure
+ *  android.telephony.TelephonyManager
+ *  android.text.TextUtils
  */
 package com.growingio.android.sdk.collection;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.annotation.TargetApi;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
+import com.growingio.android.sdk.utils.g;
+import java.io.UnsupportedEncodingException;
+import java.util.UUID;
 
-class l {
-    String a;
-    HashMap b;
+public class l {
+    protected static UUID a;
 
-    l(String string) {
-        this.a = string;
-        this.b = new HashMap();
-    }
-
-    l(String string, JSONObject jSONObject) {
-        if (jSONObject == null) {
+    /*
+     * WARNING - Removed try catching itself - possible behaviour change.
+     * Enabled force condition propagation
+     * Lifted jumps to return sites
+     */
+    @TargetApi(value=9)
+    public l(Context context) {
+        if (a != null) return;
+        reference var2_2 = l.class;
+        synchronized (l.class) {
+            if (a != null) return;
+            SharedPreferences sharedPreferences = context.getSharedPreferences("device_id.xml", 0);
+            String string = sharedPreferences.getString("device_id", null);
+            if (string != null) {
+                a = UUID.fromString(string);
+            } else {
+                String string2 = Settings.Secure.getString((ContentResolver)context.getContentResolver(), (String)"android_id");
+                try {
+                    String string3;
+                    if (!TextUtils.isEmpty((CharSequence)string2) && !"9774d56d682e549c".equals(string2)) {
+                        a = UUID.nameUUIDFromBytes(string2.getBytes("utf8"));
+                    } else if (g.e() && !TextUtils.isEmpty((CharSequence)(string3 = ((TelephonyManager)context.getSystemService("phone")).getDeviceId()))) {
+                        a = UUID.nameUUIDFromBytes(string3.getBytes("utf8"));
+                    }
+                }
+                catch (UnsupportedEncodingException var6_7) {
+                    throw new RuntimeException(var6_7);
+                }
+                if (a == null) {
+                    a = UUID.randomUUID();
+                }
+                sharedPreferences.edit().putString("device_id", a.toString()).apply();
+            }
+            // ** MonitorExit[var2_2] (shouldn't be in output)
             return;
         }
-        try {
-            this.a = string;
-            this.b = new HashMap();
-            Iterator iterator = jSONObject.keys();
-            while (iterator.hasNext()) {
-                String string2 = (String)iterator.next();
-                this.b.put(string2, jSONObject.getInt(string2));
-            }
-        }
-        catch (JSONException var3_4) {
-            var3_4.printStackTrace();
-        }
     }
 
-    String a() {
-        JSONObject jSONObject = new JSONObject();
-        try {
-            if (this.b != null) {
-                for (String string : this.b.keySet()) {
-                    jSONObject.put(string, this.b.get(string));
-                }
-            }
-        }
-        catch (JSONException var2_3) {
-            var2_3.printStackTrace();
-        }
-        return jSONObject.toString();
+    public UUID a() {
+        return a;
     }
 }
 

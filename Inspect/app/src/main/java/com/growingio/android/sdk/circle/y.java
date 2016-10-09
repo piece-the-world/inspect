@@ -3,19 +3,21 @@
  */
 package com.growingio.android.sdk.circle;
 
-import com.growingio.android.sdk.circle.j;
+import com.growingio.android.sdk.circle.k;
+import com.growingio.android.sdk.circle.z;
+import com.growingio.android.sdk.utils.i;
 
 class y
 implements Runnable {
-    final /* synthetic */ j a;
+    final /* synthetic */ k a;
 
-    y(j j2) {
-        this.a = j2;
+    y(k k2) {
+        this.a = k2;
     }
 
     @Override
     public void run() {
-        this.a.i();
+        i.a(new z(this));
     }
 }
 

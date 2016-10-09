@@ -2,39 +2,180 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
+ *  android.app.Activity
+ *  android.app.Application
  *  android.content.Context
- *  android.text.Editable
- *  android.text.TextUtils
+ *  android.content.res.Resources
+ *  android.os.Build
+ *  android.os.Build$VERSION
+ *  android.view.MotionEvent
  *  android.view.View
  *  android.view.View$OnClickListener
+ *  android.view.ViewGroup
+ *  android.view.ViewGroup$LayoutParams
+ *  android.view.ViewParent
+ *  android.view.WindowManager
+ *  android.view.WindowManager$LayoutParams
+ *  android.view.animation.AlphaAnimation
+ *  android.view.animation.Animation
+ *  android.widget.TextView
  *  android.widget.Toast
  */
 package com.growingio.android.sdk.circle;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextUtils;
+import android.content.res.Resources;
+import android.os.Build;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.TextView;
 import android.widget.Toast;
-import com.growingio.android.sdk.circle.ar;
+import com.growingio.android.sdk.b.a;
+import com.growingio.android.sdk.b.b;
+import com.growingio.android.sdk.circle.aq;
+import com.growingio.android.sdk.circle.bd;
 import com.growingio.android.sdk.circle.bl;
-import com.growingio.android.sdk.utils.h;
+import com.growingio.android.sdk.circle.k;
+import com.growingio.android.sdk.collection.t;
+import com.growingio.android.sdk.utils.g;
+import com.growingio.android.sdk.utils.j;
+import java.util.Collections;
+import java.util.List;
 
-class bk
-implements View.OnClickListener {
-    final /* synthetic */ ar a;
+public class bk
+extends aq {
+    private float a;
+    private float b;
+    private float c;
+    private int d;
+    private TextView e;
+    private WindowManager f;
+    private int g = 2005;
+    private Animation h;
+    private static int i = 0;
 
-    bk(ar ar2) {
-        this.a = ar2;
+    public bk(Context context) {
+        super(context);
+        this.c();
     }
 
-    public void onClick(View view) {
-        if (TextUtils.isEmpty((CharSequence)ar.f(this.a).getText().toString().trim())) {
-            Toast.makeText((Context)ar.g(this.a), (CharSequence)"\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a", (int)0).show();
-            return;
+    public boolean onTouchEvent(MotionEvent event) {
+        boolean bl2 = false;
+        switch (event.getAction()) {
+            case 0: {
+                this.b = this.c = event.getRawY();
+                this.a = event.getY();
+                break;
+            }
+            case 2: {
+                this.b = event.getRawY();
+                if (Math.abs(this.b - this.c) < (float)this.d) break;
+                WindowManager.LayoutParams layoutParams = (WindowManager.LayoutParams)this.getLayoutParams();
+                layoutParams.y = (int)(this.b - this.a);
+                this.f.updateViewLayout((View)this, (ViewGroup.LayoutParams)layoutParams);
+                bl2 = true;
+                break;
+            }
+            case 1: 
+            case 3: {
+                i = (int)this.b;
+                if (Math.abs(this.b - this.c) >= (float)this.d) break;
+                this.performClick();
+                break;
+            }
         }
-        ar.a(this.a, false);
-        h.a(new bl(this), 500);
+        return bl2;
+    }
+
+    private void c() {
+        this.e = new TextView(this.getContext());
+        this.e.setText((CharSequence)"Web\u7aef\u5708\u9009\u4e2d\u2026");
+        this.e.setGravity(17);
+        this.e.setTextSize(2, 15.0f);
+        int n2 = j.a(this.getContext(), 4.0f);
+        this.e.setPadding(n2, n2, n2, n2);
+        this.e.setTextColor(-1);
+        this.h = new AlphaAnimation(0.0f, 1.0f);
+        this.h.setDuration(720);
+        this.h.setRepeatCount(-1);
+        this.h.setRepeatMode(2);
+        this.addView((View)this.e, new ViewGroup.LayoutParams(-1, -2));
+        this.setBackgroundColor(-15094626);
+        this.f = (WindowManager)this.getContext().getApplicationContext().getSystemService("window");
+        this.d = j.a(this.getContext(), 10.0f);
+        if (Build.VERSION.SDK_INT < 19) {
+            this.g = 2002;
+        }
+        this.setOnClickListener((View.OnClickListener)new bl(this));
+    }
+
+    private k getCircleManager() {
+        return k.e();
+    }
+
+    public void a() {
+        if (this.getParent() != null) {
+            this.setVisibility(0);
+        } else {
+            Activity activity = this.getCircleManager().d();
+            if (this.g != 2005 && !g.d()) {
+                Toast.makeText((Context)activity, (CharSequence)"\u7f3a\u5c11 SYSTEM_ALERT_WINDOW \u6743\u9650\u65e0\u6cd5\u5708\u9009, \u8bf7\u4f7f\u7528Android 4.4\u4ee5\u4e0a\u7cfb\u7edf", (int)0).show();
+                return;
+            }
+            int n2 = 296;
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(bd.b(), -2, this.g, n2, -3);
+            layoutParams.gravity = 51;
+            layoutParams.y = i == 0 ? this.getStatusBarHeight() : i;
+            WindowManager windowManager = (WindowManager)activity.getApplication().getSystemService("window");
+            windowManager.addView((View)this, (ViewGroup.LayoutParams)layoutParams);
+        }
+        this.e.startAnimation(this.h);
+        this.setKeepScreenOn(true);
+    }
+
+    public int getStatusBarHeight() {
+        int n2 = 0;
+        int n3 = this.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (n3 > 0) {
+            n2 = this.getResources().getDimensionPixelSize(n3);
+        }
+        return n2;
+    }
+
+    public void b() {
+        this.f.removeView((View)this);
+        this.setKeepScreenOn(false);
+    }
+
+    public void setContent(String content) {
+        this.e.setText((CharSequence)content);
+    }
+
+    private void d() {
+        b b2 = new b();
+        b2.a = "GioWindow/FloatViewContainer[0]/TextView[0]";
+        b2.b = System.currentTimeMillis();
+        b2.d = this.e.getText().toString();
+        a a2 = a.c();
+        a2.g = "GIOActivity";
+        a2.b = b2.b;
+        a2.a = Collections.singletonList(b2);
+        t.d().a((com.growingio.android.sdk.b.g)a2);
+    }
+
+    static /* synthetic */ k a(bk bk2) {
+        return bk2.getCircleManager();
+    }
+
+    static /* synthetic */ void b(bk bk2) {
+        bk2.d();
     }
 }
 

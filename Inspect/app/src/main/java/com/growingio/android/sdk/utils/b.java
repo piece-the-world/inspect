@@ -15,7 +15,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import com.growingio.android.sdk.utils.LogUtil;
-import com.growingio.android.sdk.utils.f;
+import com.growingio.android.sdk.utils.g;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -56,7 +56,7 @@ public class b {
      * WARNING - Removed try catching itself - possible behaviour change.
      */
     public boolean a(String string) {
-        if (!f.c()) {
+        if (!g.c()) {
             return false;
         }
         BufferedWriter bufferedWriter = null;

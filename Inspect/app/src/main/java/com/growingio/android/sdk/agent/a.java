@@ -3,19 +3,19 @@
  */
 package com.growingio.android.sdk.agent;
 
-import com.growingio.android.sdk.collection.q;
+import com.growingio.android.sdk.agent.VdsAgent;
 
 final class a
 implements Runnable {
-    final /* synthetic */ q a;
+    final /* synthetic */ Object a;
 
-    a(q q2) {
-        this.a = q2;
+    a(Object object) {
+        this.a = object;
     }
 
     @Override
     public void run() {
-        this.a.a(true);
+        VdsAgent.a(this.a);
     }
 }
 

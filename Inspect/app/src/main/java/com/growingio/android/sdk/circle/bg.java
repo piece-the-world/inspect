@@ -3,23 +3,39 @@
  * 
  * Could not load the following classes:
  *  android.view.View
- *  android.view.View$OnClickListener
+ *  org.json.JSONArray
+ *  org.json.JSONObject
  */
 package com.growingio.android.sdk.circle;
 
 import android.view.View;
-import com.growingio.android.sdk.circle.ar;
+import com.growingio.android.sdk.b.i;
+import com.growingio.android.sdk.b.l;
+import com.growingio.android.sdk.circle.be;
+import com.growingio.android.sdk.utils.j;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 class bg
-implements View.OnClickListener {
-    final /* synthetic */ ar a;
+extends l {
+    final /* synthetic */ be a;
 
-    bg(ar ar2) {
-        this.a = ar2;
+    bg(be be2) {
+        this.a = be2;
     }
 
-    public void onClick(View view) {
-        this.a.dismiss();
+    @Override
+    public boolean a(i i2) {
+        return super.a(i2) || j.b(i2.c);
+    }
+
+    @Override
+    public void b(i i2) {
+        JSONObject jSONObject = i2.e();
+        be.a(this.a, jSONObject, i2);
+        if (jSONObject != null) {
+            be.b(this.a).put((Object)jSONObject);
+        }
     }
 }
 

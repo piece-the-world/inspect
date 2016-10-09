@@ -3,33 +3,21 @@
  */
 package com.growingio.android.sdk.circle;
 
-import com.growingio.android.sdk.circle.j;
-import com.growingio.android.sdk.collection.aj;
-import com.growingio.android.sdk.utils.h;
-import java.util.Collection;
-import java.util.List;
+import com.growingio.android.sdk.b.g;
+import com.growingio.android.sdk.b.i;
+import com.growingio.android.sdk.circle.k;
 
 class n
-implements aj {
-    final /* synthetic */ j a;
+implements Runnable {
+    final /* synthetic */ k a;
 
-    n(j j2) {
-        this.a = j2;
+    n(k k2) {
+        this.a = k2;
     }
 
     @Override
-    public void a(List list) {
-        if (j.e(this.a) != null && j.e(this.a).b() && j.e(this.a).a()) {
-            if (j.f(this.a) != null) {
-                j.f(this.a).addAll(list);
-            } else {
-                j.a(this.a, list);
-            }
-            if (j.g(this.a) == 0) {
-                h.b(j.h(this.a));
-                h.a(j.h(this.a));
-            }
-        }
+    public void run() {
+        this.a.a("touch", null, null);
     }
 }
 

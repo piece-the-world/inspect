@@ -2,120 +2,68 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.app.Activity
- *  android.app.Fragment
- *  android.support.v4.app.Fragment
- *  org.json.JSONObject
+ *  android.os.Handler
  */
 package com.growingio.android.sdk.collection;
 
-import android.app.Activity;
-import android.app.Fragment;
-import com.growingio.android.sdk.collection.GrowingIO;
+import android.os.Handler;
+import com.growingio.android.sdk.collection.m;
 import com.growingio.android.sdk.collection.n;
-import org.json.JSONObject;
+import com.growingio.android.sdk.collection.o;
+import com.growingio.android.sdk.collection.t;
+import java.util.Map;
+import java.util.Set;
 
-public class p
-extends GrowingIO {
-    private p() {
-        super((n)null);
+class p
+implements Runnable {
+    private boolean b;
+    final /* synthetic */ n a;
+
+    private p(n n2) {
+        this.a = n2;
+        this.b = false;
+    }
+
+    private void a() {
+        if (!this.b) {
+            this.b = true;
+            t.d().b().postDelayed((Runnable)this, 300000);
+        }
+    }
+
+    private void b() {
+        this.b = true;
+        t.d().b().removeCallbacks((Runnable)this);
+        t.d().b().post((Runnable)this);
     }
 
     @Override
-    public GrowingIO setCS1(String string, String string2) {
-        return this;
+    public void run() {
+        Set set = n.a(this.a).entrySet();
+        try {
+            Object[] arrobject = set.toArray();
+            int n2 = arrobject.length;
+            for (int i2 = 0; i2 < n2; ++i2) {
+                Map.Entry entry = (Map.Entry)arrobject[i2];
+                n.a(this.a, (m)entry.getValue());
+            }
+        }
+        catch (Exception var2_3) {
+            var2_3.printStackTrace();
+        }
+        this.b = false;
     }
 
-    @Override
-    public GrowingIO setCS2(String string, String string2) {
-        return this;
+    static /* synthetic */ void a(p p2) {
+        p2.a();
     }
 
-    @Override
-    public GrowingIO setCS3(String string, String string2) {
-        return this;
+    static /* synthetic */ void b(p p2) {
+        p2.b();
     }
 
-    @Override
-    public GrowingIO setCS4(String string, String string2) {
-        return this;
-    }
-
-    @Override
-    public GrowingIO setCS5(String string, String string2) {
-        return this;
-    }
-
-    @Override
-    public GrowingIO setCS6(String string, String string2) {
-        return this;
-    }
-
-    @Override
-    public GrowingIO setCS7(String string, String string2) {
-        return this;
-    }
-
-    @Override
-    public GrowingIO setCS8(String string, String string2) {
-        return this;
-    }
-
-    @Override
-    public GrowingIO setCS9(String string, String string2) {
-        return this;
-    }
-
-    @Override
-    public GrowingIO setCS10(String string, String string2) {
-        return this;
-    }
-
-    @Override
-    public GrowingIO setChannel(String string) {
-        return this;
-    }
-
-    @Override
-    public void trackFragment(Activity activity, android.support.v4.app.Fragment fragment) {
-    }
-
-    @Override
-    public void trackFragment(Activity activity, Fragment fragment) {
-    }
-
-    @Override
-    protected GrowingIO a(Object object, int n2, String string) {
-        return this;
-    }
-
-    @Override
-    public GrowingIO track(String string, JSONObject jSONObject) {
-        return this;
-    }
-
-    @Override
-    public GrowingIO setPageName(Activity activity, String string) {
-        return this;
-    }
-
-    @Override
-    public GrowingIO setPageName(Fragment fragment, String string) {
-        return this;
-    }
-
-    @Override
-    public GrowingIO setPageName(android.support.v4.app.Fragment fragment, String string) {
-        return this;
-    }
-
-    @Override
-    public GrowingIO setPageGroup(Activity activity, String string) {
-        return this;
-    }
-
-    /* synthetic */ p(n n2) {
-        this();
+    /* synthetic */ p(n n2, o o2) {
+        this(n2);
     }
 }
 

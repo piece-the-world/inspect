@@ -2,6 +2,7 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
+ *  android.annotation.TargetApi
  *  android.app.Activity
  *  android.app.AlertDialog
  *  android.app.AlertDialog$Builder
@@ -16,15 +17,18 @@
  *  android.content.DialogInterface
  *  android.content.DialogInterface$OnClickListener
  *  android.content.Intent
+ *  android.graphics.Rect
  *  android.os.Build
  *  android.os.Build$VERSION
  *  android.support.v4.app.DialogFragment
  *  android.support.v4.app.Fragment
  *  android.support.v4.app.FragmentManager
  *  android.support.v4.app.FragmentTransaction
+ *  android.util.Log
  *  android.view.MenuItem
  *  android.view.View
  *  android.view.View$OnClickListener
+ *  android.view.ViewParent
  *  android.webkit.WebChromeClient
  *  android.webkit.WebView
  *  android.widget.AdapterView
@@ -48,6 +52,7 @@
  */
 package com.growingio.android.sdk.agent;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -57,12 +62,15 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Build;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewParent;
 import android.webkit.WebChromeClient;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -74,243 +82,378 @@ import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Toast;
 import com.growingio.android.sdk.agent.a;
-import com.growingio.android.sdk.circle.j;
+import com.growingio.android.sdk.agent.b;
+import com.growingio.android.sdk.agent.c;
+import com.growingio.android.sdk.agent.d;
+import com.growingio.android.sdk.agent.e;
+import com.growingio.android.sdk.b.i;
+import com.growingio.android.sdk.circle.k;
 import com.growingio.android.sdk.collection.GConfig;
-import com.growingio.android.sdk.collection.ag;
-import com.growingio.android.sdk.collection.c;
-import com.growingio.android.sdk.collection.q;
+import com.growingio.android.sdk.collection.ak;
+import com.growingio.android.sdk.collection.t;
 import com.growingio.android.sdk.utils.LogUtil;
-import com.growingio.android.sdk.utils.h;
-import com.growingio.android.sdk.utils.m;
 import com.tencent.smtt.sdk.WebView;
+import java.lang.reflect.Field;
 import java.net.URLConnection;
+import java.util.Iterator;
+import java.util.List;
 
 public class VdsAgent {
     static boolean a = false;
+    private static e b = new e(null);
+
+    public static void clickOn(View view) {
+        try {
+            com.growingio.android.sdk.utils.k.b(view);
+        }
+        catch (Throwable var1_1) {
+            LogUtil.d(var1_1);
+        }
+    }
 
     public static void onClick(Object object, View view) {
         try {
             if (object instanceof View.OnClickListener) {
-                m.a(view);
+                com.growingio.android.sdk.utils.k.b(view);
             }
         }
-        catch (Exception var2_2) {
+        catch (Throwable var2_2) {
             LogUtil.d(var2_2);
         }
     }
 
-    public static void onClick(Object object, DialogInterface dialogInterface, int n2) {
+    public static void onClick(Object object, DialogInterface dialogInterface, int which) {
         try {
             if (object instanceof DialogInterface.OnClickListener) {
-                m.a(dialogInterface, n2);
+                com.growingio.android.sdk.utils.k.a(dialogInterface, which);
             }
         }
-        catch (Exception var3_3) {
+        catch (Throwable var3_3) {
             LogUtil.d(var3_3);
         }
     }
 
-    public static boolean onGroupClick(Object object, ExpandableListView expandableListView, View view, int n2, long l2) {
-        try {
-            if (object instanceof ExpandableListView.OnGroupClickListener) {
-                m.a(view);
-            }
-        }
-        catch (Exception var6_5) {
-            LogUtil.d(var6_5);
-        }
-        return false;
-    }
-
-    public static boolean onChildClick(Object object, ExpandableListView expandableListView, View view, int n2, int n3, long l2) {
-        try {
-            if (object instanceof ExpandableListView.OnChildClickListener) {
-                m.a(view);
-            }
-        }
-        catch (Exception var7_6) {
-            LogUtil.d(var7_6);
-        }
-        return false;
-    }
-
-    public static void onItemClick(Object object, AdapterView adapterView, View view, int n2, long l2) {
+    public static void onItemClick(Object object, AdapterView parent, View view, int position, long id) {
         try {
             if (object instanceof AdapterView.OnItemClickListener || object instanceof AdapterView.OnItemSelectedListener) {
-                m.a(adapterView, view, n2, l2);
+                com.growingio.android.sdk.utils.k.a(parent, view, position, id);
             }
         }
-        catch (Exception var6_5) {
+        catch (Throwable var6_5) {
             LogUtil.d(var6_5);
         }
     }
 
-    public static void onItemSelected(Object object, AdapterView adapterView, View view, int n2, long l2) {
-        VdsAgent.onItemClick(object, adapterView, view, n2, l2);
+    public static void onItemSelected(Object object, AdapterView parent, View view, int position, long id) {
+        VdsAgent.onItemClick(object, parent, view, position, id);
     }
 
-    public static void onStopTrackingTouch(Object object, SeekBar seekBar) {
+    public static void onStopTrackingTouch(Object thisObj, SeekBar seekBar) {
         try {
-            m.a((View)seekBar);
+            com.growingio.android.sdk.utils.k.b((View)seekBar);
         }
-        catch (Exception var2_2) {
+        catch (Throwable var2_2) {
             LogUtil.d(var2_2);
         }
     }
 
-    public static void onRatingChanged(Object object, RatingBar ratingBar, float f2, boolean bl2) {
+    public static void onRatingChanged(Object thisObj, RatingBar ratingBar, float rating, boolean fromUser) {
         try {
-            if (bl2) {
-                m.a((View)ratingBar);
+            if (fromUser) {
+                com.growingio.android.sdk.utils.k.b((View)ratingBar);
             }
         }
-        catch (Exception var4_4) {
+        catch (Throwable var4_4) {
             LogUtil.d(var4_4);
         }
     }
 
-    public static boolean onMenuItemClick(Object object, MenuItem menuItem) {
-        try {
-            if (object instanceof PopupMenu.OnMenuItemClickListener) {
-                m.a(menuItem);
-            }
-        }
-        catch (Exception var2_2) {
-            LogUtil.d(var2_2);
-        }
-        return false;
-    }
-
-    public static boolean onOptionsItemSelected(Object object, MenuItem menuItem) {
-        try {
-            if (object instanceof Activity && !com.growingio.android.sdk.utils.a.e(object)) {
-                m.a(menuItem);
-            }
-        }
-        catch (Exception var2_2) {
-            LogUtil.d(var2_2);
-        }
-        return false;
-    }
-
-    public static void onCheckedChanged(Object object, RadioGroup radioGroup, int n2) {
+    public static void onCheckedChanged(Object object, RadioGroup radioGroup, int i2) {
         try {
             if (object instanceof RadioGroup.OnCheckedChangeListener) {
-                m.a((View)radioGroup);
+                com.growingio.android.sdk.utils.k.b((View)radioGroup);
             }
         }
-        catch (Exception var3_3) {
+        catch (Throwable var3_3) {
             LogUtil.d(var3_3);
         }
     }
 
-    public static void onCheckedChanged(Object object, CompoundButton compoundButton, boolean bl2) {
+    public static void onCheckedChanged(Object object, CompoundButton button, boolean checked) {
         try {
             if (object instanceof CompoundButton.OnCheckedChangeListener) {
-                m.a((View)compoundButton);
+                com.growingio.android.sdk.utils.k.b((View)button);
             }
         }
-        catch (Exception var3_3) {
+        catch (Throwable var3_3) {
             LogUtil.d(var3_3);
         }
     }
 
-    public static void onFragmentResume(Object object) {
-        if (object instanceof Fragment) {
-            if (Build.VERSION.SDK_INT >= 15 && ((Fragment)object).getUserVisibleHint() && ((Fragment)object).getId() != 0) {
-                LogUtil.d("VdsAgent", "onFragmentResume: " + object);
-                c c2 = c.h();
-                if (c2 != null) {
-                    c2.a((Fragment)object);
-                }
+    private static boolean a(View view) {
+        View view2 = view;
+        while (view != null && view.getVisibility() == 0) {
+            ViewParent viewParent = view.getParent();
+            if (viewParent == null) {
+                LogUtil.d("VdsAgent", new Object[]{"Hit detached view: ", view2});
+                return false;
             }
-        } else if (com.growingio.android.sdk.utils.a.f(object) && ((android.support.v4.app.Fragment)object).getUserVisibleHint() && ((android.support.v4.app.Fragment)object).getId() != 0) {
-            LogUtil.d("VdsAgent", "onFragmentResume: " + object);
-            c c3 = c.h();
-            if (c3 != null) {
-                c3.a((android.support.v4.app.Fragment)object);
+            if (viewParent instanceof View) {
+                view = (View)viewParent;
+                continue;
             }
+            boolean bl2 = view2.getLocalVisibleRect(new Rect());
+            if (!bl2) {
+                LogUtil.d("VdsAgent", new Object[]{"Hit invisible rect view: ", view2});
+            }
+            return bl2;
         }
+        return false;
     }
 
-    public static void onFragmentPause(Object object) {
-        if (object instanceof Fragment) {
-            if (Build.VERSION.SDK_INT >= 15 && ((Fragment)object).getUserVisibleHint() && ((Fragment)object).getId() != 0) {
-                LogUtil.d("VdsAgent", "onFragmentPause: " + object);
-                c c2 = c.h();
-                if (c2 != null) {
-                    c2.b((Fragment)object);
-                }
-            }
-        } else if (com.growingio.android.sdk.utils.a.f(object) && ((android.support.v4.app.Fragment)object).getUserVisibleHint() && ((android.support.v4.app.Fragment)object).getId() != 0) {
-            LogUtil.d("VdsAgent", "onFragmentPause: " + object);
-            c c3 = c.h();
-            if (c3 != null) {
-                c3.b((android.support.v4.app.Fragment)object);
-            }
+    private static boolean a(android.support.v4.app.Fragment fragment, boolean bl2) {
+        boolean bl3;
+        boolean bl4 = bl3 = fragment.getId() != 0;
+        if (!bl3) {
+            LogUtil.d("VdsAgent", new Object[]{"skip non-id fragment ", fragment});
+            return false;
         }
+        boolean bl5 = fragment.isHidden();
+        if (bl5) {
+            LogUtil.d("VdsAgent", new Object[]{"skip hidden fragment ", fragment});
+            return false;
+        }
+        boolean bl6 = fragment.getUserVisibleHint();
+        if (!bl6) {
+            LogUtil.d("VdsAgent", new Object[]{"skip !userVisibleHint fragment ", fragment});
+            return false;
+        }
+        boolean bl7 = true;
+        android.support.v4.app.Fragment fragment2 = fragment.getParentFragment();
+        if (fragment2 != null) {
+            bl7 = VdsAgent.a(fragment2, bl2);
+        }
+        if (!bl7) {
+            LogUtil.d("VdsAgent", new Object[]{"skip !visible parent fragment ", fragment});
+            return false;
+        }
+        if (!bl2) {
+            return true;
+        }
+        boolean bl8 = VdsAgent.a(fragment.getView());
+        if (!bl8) {
+            LogUtil.d("VdsAgent", new Object[]{"skip invisible view fragment ", fragment});
+            return false;
+        }
+        return true;
     }
 
-    public static void setFragmentUserVisibleHint(Object object, boolean bl2) {
-        if (object instanceof Fragment) {
-            if (Build.VERSION.SDK_INT >= 15 && ((Fragment)object).isResumed() && ((Fragment)object).getId() != 0) {
-                if (bl2) {
-                    LogUtil.d("VdsAgent", "setFragmentUserVisibleHint: " + object);
-                    c c2 = c.h();
+    @TargetApi(value=15)
+    private static boolean a(Fragment fragment, boolean bl2) {
+        Fragment fragment2;
+        boolean bl3;
+        boolean bl4 = bl3 = fragment.getId() != 0;
+        if (!bl3) {
+            LogUtil.d("VdsAgent", new Object[]{"skip non-id fragment ", fragment});
+            return false;
+        }
+        boolean bl5 = fragment.isHidden();
+        if (bl5) {
+            LogUtil.d("VdsAgent", new Object[]{"skip hidden fragment ", fragment});
+            return false;
+        }
+        boolean bl6 = fragment.getUserVisibleHint();
+        if (!bl6) {
+            LogUtil.d("VdsAgent", new Object[]{"skip !userVisibleHint fragment ", fragment});
+            return false;
+        }
+        boolean bl7 = true;
+        if (Build.VERSION.SDK_INT >= 17 && (fragment2 = fragment.getParentFragment()) != null) {
+            bl7 = VdsAgent.a(fragment2, bl2);
+        }
+        if (!bl7) {
+            LogUtil.d("VdsAgent", new Object[]{"skip !visible parent fragment ", fragment});
+            return false;
+        }
+        if (!bl2) {
+            return true;
+        }
+        boolean bl8 = VdsAgent.a(fragment.getView());
+        if (!bl8) {
+            LogUtil.d("VdsAgent", new Object[]{"skip invisible view fragment ", fragment});
+            return false;
+        }
+        return true;
+    }
+
+    private static void c(Object object) {
+        try {
+            if (com.growingio.android.sdk.utils.a.g(object)) {
+                if (VdsAgent.a((android.support.v4.app.Fragment)object, false)) {
+                    LogUtil.d("VdsAgent", "onFragmentResume: ", object);
+                    com.growingio.android.sdk.collection.c c2 = com.growingio.android.sdk.collection.c.k();
                     if (c2 != null) {
-                        c2.a((Fragment)object);
+                        c2.a((android.support.v4.app.Fragment)object);
                     }
                 } else {
-                    LogUtil.d("VdsAgent", "setFragmentUserVisibleHint: " + object);
-                    c c3 = c.h();
+                    LogUtil.d("VdsAgent", "skip invisible Fragment: ", object);
+                }
+            } else if (object instanceof Fragment && Build.VERSION.SDK_INT >= 15) {
+                if (VdsAgent.a((Fragment)object, false)) {
+                    LogUtil.d("VdsAgent", "onFragmentResume: ", object);
+                    com.growingio.android.sdk.collection.c c3 = com.growingio.android.sdk.collection.c.k();
                     if (c3 != null) {
-                        c3.b((Fragment)object);
+                        c3.a((Fragment)object);
                     }
-                }
-            }
-        } else if (com.growingio.android.sdk.utils.a.f(object) && ((android.support.v4.app.Fragment)object).isResumed() && ((android.support.v4.app.Fragment)object).getId() != 0) {
-            if (bl2) {
-                LogUtil.d("VdsAgent", "setFragmentUserVisibleHint: " + object);
-                c c4 = c.h();
-                if (c4 != null) {
-                    c4.a((android.support.v4.app.Fragment)object);
-                }
-            } else {
-                LogUtil.d("VdsAgent", "setFragmentUserVisibleHint: " + object);
-                c c5 = c.h();
-                if (c5 != null) {
-                    c5.b((android.support.v4.app.Fragment)object);
+                } else {
+                    LogUtil.d("VdsAgent", "skip invisible Fragment: ", object);
                 }
             }
         }
+        catch (Throwable var1_3) {
+            LogUtil.d(var1_3);
+        }
     }
 
-    public static void showDialogFragment(android.app.DialogFragment dialogFragment, android.app.FragmentManager fragmentManager, String string) {
+    private static void d(Object object) {
+        try {
+            if (com.growingio.android.sdk.utils.a.g(object)) {
+                if (VdsAgent.a((android.support.v4.app.Fragment)object, false)) {
+                    LogUtil.d("VdsAgent", "onFragmentPause: ", object);
+                    com.growingio.android.sdk.collection.c c2 = com.growingio.android.sdk.collection.c.k();
+                    if (c2 != null) {
+                        c2.b((android.support.v4.app.Fragment)object);
+                    }
+                } else {
+                    LogUtil.d("VdsAgent", "skip invisible Fragment: ", object);
+                }
+            } else if (object instanceof Fragment) {
+                if (Build.VERSION.SDK_INT >= 15) {
+                    if (VdsAgent.a((Fragment)object, false)) {
+                        LogUtil.d("VdsAgent", "onFragmentPause: ", object);
+                        com.growingio.android.sdk.collection.c c3 = com.growingio.android.sdk.collection.c.k();
+                        if (c3 != null) {
+                            c3.b((Fragment)object);
+                        }
+                    }
+                } else {
+                    LogUtil.d("VdsAgent", "skip invisible Fragment: ", object);
+                }
+            }
+        }
+        catch (Throwable var1_3) {
+            LogUtil.d(var1_3);
+        }
+    }
+
+    private static void b(Object object, boolean bl2) {
+        VdsAgent.a(object, bl2, true);
+    }
+
+    private static void a(Object object, boolean bl2, boolean bl3) {
+        try {
+            if (com.growingio.android.sdk.utils.a.g(object)) {
+                if (((android.support.v4.app.Fragment)object).isResumed() && VdsAgent.a((android.support.v4.app.Fragment)object, !bl3)) {
+                    Object object2;
+                    LogUtil.d("VdsAgent", "setFragmentUserVisibleHint: ", bl2, " @ ", object);
+                    if (bl2) {
+                        object2 = com.growingio.android.sdk.collection.c.k();
+                        if (object2 != null) {
+                            object2.a((android.support.v4.app.Fragment)object);
+                        }
+                    } else {
+                        object2 = com.growingio.android.sdk.collection.c.k();
+                        if (object2 != null) {
+                            object2.b((android.support.v4.app.Fragment)object);
+                        }
+                    }
+                    object2 = ((android.support.v4.app.Fragment)object).getChildFragmentManager().getFragments();
+                    if (object2 != null) {
+                        Iterator iterator = object2.iterator();
+                        while (iterator.hasNext()) {
+                            android.support.v4.app.Fragment fragment = (android.support.v4.app.Fragment)iterator.next();
+                            VdsAgent.a((Object)fragment, bl2, false);
+                        }
+                    }
+                } else {
+                    LogUtil.d("VdsAgent", "skip invisible Fragment: ", object);
+                }
+            } else if (object instanceof Fragment && Build.VERSION.SDK_INT >= 15) {
+                if (((Fragment)object).isResumed() && VdsAgent.a((Fragment)object, !bl3)) {
+                    Object object3;
+                    LogUtil.d("VdsAgent", "setFragmentUserVisibleHint: ", bl2, " @ ", object);
+                    if (bl2) {
+                        object3 = com.growingio.android.sdk.collection.c.k();
+                        if (object3 != null) {
+                            object3.a((Fragment)object);
+                        }
+                    } else {
+                        LogUtil.d("VdsAgent", "setFragmentUserVisibleHint: ", object);
+                        object3 = com.growingio.android.sdk.collection.c.k();
+                        if (object3 != null) {
+                            object3.b((Fragment)object);
+                        }
+                    }
+                    object3 = VdsAgent.a((Fragment)object);
+                    if (object3 != null) {
+                        Iterator iterator = object3.iterator();
+                        while (iterator.hasNext()) {
+                            Fragment fragment = (Fragment)iterator.next();
+                            VdsAgent.a((Object)fragment, bl2, false);
+                        }
+                    }
+                } else {
+                    LogUtil.d("VdsAgent", "skip invisible Fragment: ", object);
+                }
+            }
+        }
+        catch (Throwable var3_5) {
+            LogUtil.d(var3_5);
+        }
+    }
+
+    public static void onFragmentResume(Object fragment) {
+        com.growingio.android.sdk.utils.i.a(new a(fragment));
+    }
+
+    public static void onFragmentPause(Object fragment) {
+        com.growingio.android.sdk.utils.i.a(new b(fragment));
+    }
+
+    public static void setFragmentUserVisibleHint(Object fragment, boolean visibleToUser) {
+        com.growingio.android.sdk.utils.i.a(new c(fragment, visibleToUser));
+    }
+
+    public static void onFragmentHiddenChanged(Object fragment, boolean hidden) {
+        VdsAgent.setFragmentUserVisibleHint(fragment, !hidden);
+    }
+
+    public static void showDialogFragment(android.app.DialogFragment dialogFragment, android.app.FragmentManager manager, String tag) {
         if (Build.VERSION.SDK_INT >= 11) {
-            dialogFragment.show(fragmentManager, string);
+            dialogFragment.show(manager, tag);
             VdsAgent.a();
         }
     }
 
-    public static int showDialogFragment(android.app.DialogFragment dialogFragment, android.app.FragmentTransaction fragmentTransaction, String string) {
+    public static int showDialogFragment(android.app.DialogFragment dialogFragment, android.app.FragmentTransaction transaction, String tag) {
         if (Build.VERSION.SDK_INT >= 11) {
-            LogUtil.d("VdsAgent", "showDialogFragment: " + (Object)dialogFragment);
-            int n2 = dialogFragment.show(fragmentTransaction, string);
+            LogUtil.d("VdsAgent", new Object[]{"showDialogFragment: ", dialogFragment});
+            int n2 = dialogFragment.show(transaction, tag);
             VdsAgent.a();
             return n2;
         }
         return 0;
     }
 
-    public static void showDialogFragment(DialogFragment dialogFragment, FragmentManager fragmentManager, String string) {
-        LogUtil.d("VdsAgent", "showDialogFragment: " + (Object)dialogFragment);
-        dialogFragment.show(fragmentManager, string);
+    public static void showDialogFragment(DialogFragment dialogFragment, FragmentManager manager, String tag) {
+        LogUtil.d("VdsAgent", new Object[]{"showDialogFragment: ", dialogFragment});
+        dialogFragment.show(manager, tag);
         VdsAgent.a();
     }
 
-    public static int showDialogFragment(DialogFragment dialogFragment, FragmentTransaction fragmentTransaction, String string) {
-        LogUtil.d("VdsAgent", "showDialogFragment: " + (Object)dialogFragment);
-        int n2 = dialogFragment.show(fragmentTransaction, string);
+    public static int showDialogFragment(DialogFragment dialogFragment, FragmentTransaction transaction, String tag) {
+        LogUtil.d("VdsAgent", new Object[]{"showDialogFragment: ", dialogFragment});
+        int n2 = dialogFragment.show(transaction, tag);
         VdsAgent.a();
         return n2;
     }
@@ -326,24 +469,25 @@ public class VdsAgent {
         VdsAgent.a();
     }
 
-    public static void showDialog(AlertDialog alertDialog) {
-        VdsAgent.showDialog((Dialog)alertDialog);
+    public static void showDialog(AlertDialog dialog) {
+        VdsAgent.showDialog((Dialog)dialog);
     }
 
-    public static void showDialog(DatePickerDialog datePickerDialog) {
-        VdsAgent.showDialog((AlertDialog)datePickerDialog);
+    public static void showDialog(DatePickerDialog dialog) {
+        VdsAgent.showDialog((AlertDialog)dialog);
     }
 
-    public static void showDialog(TimePickerDialog timePickerDialog) {
-        VdsAgent.showDialog((AlertDialog)timePickerDialog);
+    public static void showDialog(TimePickerDialog dialog) {
+        VdsAgent.showDialog((AlertDialog)dialog);
     }
 
-    public static void showDialog(ProgressDialog progressDialog) {
-        VdsAgent.showDialog((AlertDialog)progressDialog);
+    public static void showDialog(ProgressDialog dialog) {
+        VdsAgent.showDialog((AlertDialog)dialog);
     }
 
-    public static void showPopupMenu(PopupMenu popupMenu) {
-        popupMenu.show();
+    @TargetApi(value=11)
+    public static void showPopupMenu(PopupMenu menu) {
+        menu.show();
         VdsAgent.a();
     }
 
@@ -352,71 +496,165 @@ public class VdsAgent {
         VdsAgent.a();
     }
 
-    public static void showAsDropDown(PopupWindow popupWindow, View view) {
-        popupWindow.showAsDropDown(view);
+    public static void showAsDropDown(PopupWindow window, View view) {
+        window.showAsDropDown(view);
         VdsAgent.a();
     }
 
-    public static void showAsDropDown(PopupWindow popupWindow, View view, int n2, int n3) {
-        popupWindow.showAsDropDown(view, n2, n3);
+    public static void showAsDropDown(PopupWindow window, View view, int xoff, int yoff) {
+        window.showAsDropDown(view, xoff, yoff);
         VdsAgent.a();
     }
 
-    public static void showAsDropDown(PopupWindow popupWindow, View view, int n2, int n3, int n4) {
-        popupWindow.showAsDropDown(view, n2, n3, n4);
+    @TargetApi(value=19)
+    public static void showAsDropDown(PopupWindow window, View view, int xoff, int yoff, int gravity) {
+        window.showAsDropDown(view, xoff, yoff, gravity);
         VdsAgent.a();
     }
 
-    public static void showAtLocation(PopupWindow popupWindow, View view, int n2, int n3, int n4) {
-        popupWindow.showAtLocation(view, n2, n3, n4);
+    public static void showAtLocation(PopupWindow window, View parent, int gravity, int x2, int y2) {
+        window.showAtLocation(parent, gravity, x2, y2);
         VdsAgent.a();
     }
 
-    public static void onNewIntent(Object object, Intent intent) {
-        j j2;
-        if (object instanceof Activity && (j2 = j.e()) != null) {
-            j2.a(intent, (Activity)object);
+    public static void onNewIntent(Object activity, Intent intent) {
+        k k2;
+        if (activity instanceof Activity && (k2 = k.e()) != null) {
+            k2.a(intent, (Activity)activity);
         }
     }
 
-    public static void loadUrl(android.webkit.WebView webView, String string) {
-        webView.loadUrl(string);
-        LogUtil.d("VdsAgent", "loadUrl: " + string);
+    public static void loadUrl(android.webkit.WebView webView, String url) {
+        webView.loadUrl(url);
+        LogUtil.d("VdsAgent", "loadUrl: ", url);
     }
 
-    public static URLConnection openConnection(URLConnection uRLConnection) {
-        LogUtil.d("VdsAgent", "openConnection: " + uRLConnection);
-        return uRLConnection;
+    public static URLConnection openConnection(URLConnection con) {
+        LogUtil.d("VdsAgent", "openConnection: ", con);
+        return con;
     }
 
-    public static void setWebChromeClient(android.webkit.WebView webView, WebChromeClient webChromeClient) {
+    public static void setWebChromeClient(android.webkit.WebView webView, WebChromeClient client) {
         if (a) {
             return;
         }
-        webView.setWebChromeClient(webChromeClient);
-        webView.setTag(84159239, (Object)webChromeClient);
-        if (GConfig.a) {
-            LogUtil.d("VdsAgent", "trackWebView: " + (Object)webView + " with client " + (Object)webChromeClient);
+        webView.setWebChromeClient(client);
+        webView.setTag(84159239, (Object)client);
+        if (GConfig.DEBUG) {
+            LogUtil.d("VdsAgent", new Object[]{"trackWebView: ", webView, " with client ", client});
         }
-        ag.a((View)webView, null);
+        ak.b((View)webView);
     }
 
-    public static void setWebChromeClient(WebView webView, com.tencent.smtt.sdk.WebChromeClient webChromeClient) {
+    public static void setWebChromeClient(WebView webView, com.tencent.smtt.sdk.WebChromeClient client) {
         a = true;
-        webView.setWebChromeClient(webChromeClient);
+        webView.setWebChromeClient(client);
         a = false;
-        webView.setTag(84159239, (Object)webChromeClient);
-        if (GConfig.a) {
-            LogUtil.d("VdsAgent", "trackWebView: " + (Object)webView + " with client " + (Object)webChromeClient);
+        webView.setTag(84159239, (Object)client);
+        if (GConfig.DEBUG) {
+            LogUtil.d("VdsAgent", new Object[]{"trackWebView: ", webView, " with client ", client});
         }
-        ag.a((View)webView, null);
+        ak.b((View)webView);
+    }
+
+    private static List a(Fragment fragment) {
+        if (Build.VERSION.SDK_INT >= 17) {
+            android.app.FragmentManager fragmentManager = fragment.getChildFragmentManager();
+            try {
+                Field field = fragmentManager.getClass().getDeclaredField("mActive");
+                field.setAccessible(true);
+                return (List)field.get((Object)fragmentManager);
+            }
+            catch (Exception var2_3) {
+                Log.w((String)"VdsAgent", (String)("getChildFragments failed. " + var2_3.getMessage()));
+            }
+        }
+        return null;
     }
 
     private static void a() {
-        q q2 = q.d();
-        if (q2 != null) {
-            h.a(new a(q2), 500);
+        t t2 = t.d();
+        if (t2 != null) {
+            com.growingio.android.sdk.utils.i.a(new d(t2), 500);
         }
+    }
+
+    private static boolean e(Object object) {
+        boolean bl2 = false;
+        if (object instanceof Boolean) {
+            bl2 = (Boolean)object;
+        }
+        return bl2;
+    }
+
+    public static void handleClickResult(Object returnValueObject) {
+        boolean bl2 = VdsAgent.e(returnValueObject);
+        if (bl2 && b.a()) {
+            com.growingio.android.sdk.utils.i.b(b);
+            com.growingio.android.sdk.utils.i.a(b);
+        } else {
+            b.a(null);
+        }
+    }
+
+    public static boolean onOptionsItemSelected(Object object, MenuItem item) {
+        if (b.a()) {
+            return false;
+        }
+        i i2 = null;
+        if (object instanceof Activity && !com.growingio.android.sdk.utils.a.f(object)) {
+            i2 = com.growingio.android.sdk.utils.k.a(item);
+        }
+        b.a(i2);
+        return false;
+    }
+
+    public static boolean onMenuItemClick(Object object, MenuItem item) {
+        if (b.a()) {
+            return false;
+        }
+        i i2 = null;
+        if (object instanceof PopupMenu.OnMenuItemClickListener) {
+            i2 = com.growingio.android.sdk.utils.k.a(item);
+        }
+        b.a(i2);
+        return false;
+    }
+
+    public static boolean onGroupClick(Object thisObject, ExpandableListView parent, View v2, int groupPosition, long id) {
+        if (b.a()) {
+            return false;
+        }
+        i i2 = null;
+        if (thisObject instanceof ExpandableListView.OnGroupClickListener) {
+            i2 = com.growingio.android.sdk.utils.k.a(v2);
+        }
+        b.a(i2);
+        return false;
+    }
+
+    public static boolean onChildClick(Object thisObject, ExpandableListView parent, View v2, int groupPosition, int childPosition, long id) {
+        if (b.a()) {
+            return false;
+        }
+        i i2 = null;
+        if (thisObject instanceof ExpandableListView.OnChildClickListener) {
+            i2 = com.growingio.android.sdk.utils.k.a(v2);
+        }
+        b.a(i2);
+        return false;
+    }
+
+    static /* synthetic */ void a(Object object) {
+        VdsAgent.c(object);
+    }
+
+    static /* synthetic */ void b(Object object) {
+        VdsAgent.d(object);
+    }
+
+    static /* synthetic */ void a(Object object, boolean bl2) {
+        VdsAgent.b(object, bl2);
     }
 }
 

@@ -11,9 +11,9 @@ package com.growingio.android.sdk.b;
 
 import android.text.TextUtils;
 import android.util.SparseArray;
-import com.growingio.android.sdk.circle.j;
+import com.growingio.android.sdk.circle.k;
 import com.growingio.android.sdk.collection.GConfig;
-import com.growingio.android.sdk.collection.af;
+import com.growingio.android.sdk.collection.aj;
 import com.growingio.android.sdk.collection.c;
 import com.growingio.android.sdk.utils.LogUtil;
 import org.json.JSONException;
@@ -23,17 +23,36 @@ public abstract class g {
     long f = System.currentTimeMillis();
     public String g;
 
-    protected c g() {
-        return c.h();
+    protected c h() {
+        return c.k();
     }
 
-    protected GConfig h() {
-        return GConfig.o();
+    protected GConfig i() {
+        return GConfig.q();
     }
 
     protected void a(JSONObject jSONObject) {
         try {
-            SparseArray sparseArray = this.g().n();
+            jSONObject.put("lat", (Object)this.h().e());
+            jSONObject.put("lng", (Object)this.h().f());
+        }
+        catch (JSONException var2_2) {
+            LogUtil.d("GIO.VPAEvent", "patch location error ", (Throwable)var2_2);
+        }
+    }
+
+    protected void b(JSONObject jSONObject) {
+        try {
+            jSONObject.put("r", (Object)c.k().p());
+        }
+        catch (JSONException var2_2) {
+            LogUtil.d("GIO.VPAEvent", "patch cs value error: ", (Throwable)var2_2);
+        }
+    }
+
+    protected void c(JSONObject jSONObject) {
+        try {
+            SparseArray sparseArray = this.h().s();
             for (int i2 = 0; i2 < sparseArray.size(); ++i2) {
                 int n2 = sparseArray.keyAt(i2);
                 String string = String.valueOf(sparseArray.get(n2));
@@ -45,17 +64,17 @@ public abstract class g {
         }
     }
 
-    public int f() {
+    public int g() {
         return 1;
     }
 
-    protected JSONObject i() {
+    protected JSONObject j() {
         JSONObject jSONObject = new JSONObject();
         try {
-            jSONObject.put("s", (Object)af.a());
+            jSONObject.put("s", (Object)aj.a());
             jSONObject.put("tm", this.f);
-            String string = this.g().b();
-            if (j.e().a()) {
+            String string = this.h().b();
+            if (k.e().a()) {
                 string = "GioCircle." + string;
             }
             jSONObject.put("d", (Object)string);

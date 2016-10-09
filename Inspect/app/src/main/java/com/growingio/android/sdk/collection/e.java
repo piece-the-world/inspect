@@ -2,64 +2,28 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  org.json.JSONException
- *  org.json.JSONObject
+ *  android.app.Activity
+ *  android.app.Fragment
+ *  android.support.v4.app.Fragment
  */
 package com.growingio.android.sdk.collection;
 
-import com.growingio.android.sdk.b.g;
-import com.growingio.android.sdk.collection.af;
-import com.growingio.android.sdk.collection.c;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.app.Activity;
+import android.app.Fragment;
 
-public class e
-extends g {
-    String a;
-    JSONObject b;
-    JSONObject c;
-    long d;
+public interface e {
+    public void a(Activity var1);
 
-    public e(JSONObject jSONObject) {
-        this.c = jSONObject;
-        try {
-            jSONObject.put("s", (Object)af.a());
-            String string = jSONObject.getString("d");
-            jSONObject.put("d", (Object)(c.h().b() + "::" + string));
-            String string2 = jSONObject.getString("p");
-            jSONObject.put("p", (Object)(c.h().o() + "::" + string2));
-        }
-        catch (JSONException var2_3) {
-            var2_3.printStackTrace();
-        }
-    }
+    public void b(Activity var1);
 
-    public e(String string, JSONObject jSONObject, JSONObject jSONObject2) {
-        this.a = string;
-        this.b = jSONObject2;
-    }
+    public void a(Fragment var1);
 
-    boolean a() {
-        return this.c != null;
-    }
+    public void a(android.support.v4.app.Fragment var1);
 
-    @Override
-    public JSONObject b() {
-        try {
-            if (this.c != null) {
-                return this.c;
-            }
-            JSONObject jSONObject = this.i();
-            jSONObject.put("n", (Object)this.a);
-            jSONObject.put("t", (Object)"cstm");
-            jSONObject.put("e", (Object)this.b);
-            jSONObject.put("ptm", this.d);
-            return jSONObject;
-        }
-        catch (JSONException var1_2) {
-            var1_2.printStackTrace();
-            return null;
-        }
-    }
+    public void b(Fragment var1);
+
+    public void b(android.support.v4.app.Fragment var1);
+
+    public void c(Activity var1);
 }
 

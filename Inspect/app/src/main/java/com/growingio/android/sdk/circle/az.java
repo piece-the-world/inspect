@@ -2,25 +2,27 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.view.View
- *  android.view.View$OnClickListener
+ *  android.util.Pair
  */
 package com.growingio.android.sdk.circle;
 
-import android.view.View;
-import com.growingio.android.sdk.circle.ar;
-import com.growingio.android.sdk.utils.g;
+import android.util.Pair;
+import com.growingio.android.sdk.circle.ax;
+import com.growingio.android.sdk.collection.ak;
 
 class az
-implements View.OnClickListener {
-    final /* synthetic */ ar a;
+implements Runnable {
+    final /* synthetic */ Pair a;
+    final /* synthetic */ ax b;
 
-    az(ar ar2) {
-        this.a = ar2;
+    az(ax ax2, Pair pair) {
+        this.b = ax2;
+        this.a = pair;
     }
 
-    public void onClick(View view) {
-        ar.a(this.a, view, g.a("growing_label_strict_text_desc", new Object[0]));
+    @Override
+    public void run() {
+        ak.a().a(new String((byte[])this.a.second));
     }
 }
 

@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import com.growingio.android.sdk.b.d;
 import com.growingio.android.sdk.b.h;
 import com.growingio.android.sdk.collection.GConfig;
-import java.util.regex.Pattern;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,22 +47,6 @@ public class f {
         }
     }
 
-    public void a(String string) {
-        this.c = string;
-    }
-
-    public void b(String string) {
-        this.g.c = string;
-    }
-
-    public void c(String string) {
-        this.g.e = string;
-    }
-
-    public void a(d d2) {
-        this.j = d2;
-    }
-
     public f a() {
         f f2 = new f();
         f2.b = this.b;
@@ -90,8 +73,8 @@ public class f {
             jSONObject.put("attrs", (Object)this.f.a());
             jSONObject.put("filter", (Object)this.g.a());
             jSONObject.put("comment", (Object)this.h);
-            jSONObject.put("appVersion", (Object)GConfig.e);
-            jSONObject.put("sdkVersion", (Object)"0.9.90_6a708c0");
+            jSONObject.put("appVersion", (Object)GConfig.sAppVersion);
+            jSONObject.put("sdkVersion", (Object)"0.9.98_355b84e");
             if (!TextUtils.isEmpty((CharSequence)this.i)) {
                 jSONObject.put("source", (Object)this.i);
             }
@@ -105,43 +88,6 @@ public class f {
             // empty catch block
         }
         return jSONObject;
-    }
-
-    public String c() {
-        return this.d().toString();
-    }
-
-    public JSONObject d() {
-        JSONObject jSONObject = new JSONObject();
-        try {
-            jSONObject.put("id", (Object)this.b);
-            jSONObject.put("name", (Object)this.c);
-            jSONObject.put("eventType", (Object)this.d);
-            jSONObject.put("platform", (Object)this.e);
-            if (this.f != null) {
-                jSONObject.put("attrs", (Object)this.f.a());
-            }
-            if (this.g != null) {
-                jSONObject.put("filter", (Object)this.g.a());
-            }
-            jSONObject.put("comment", (Object)this.h);
-        }
-        catch (JSONException var2_2) {
-            // empty catch block
-        }
-        return jSONObject;
-    }
-
-    public boolean a(f f2) {
-        return TextUtils.equals((CharSequence)f2.d, (CharSequence)this.d) && "Android".equalsIgnoreCase(f2.e) && TextUtils.equals((CharSequence)f2.g.d, (CharSequence)this.f.d) && TextUtils.equals((CharSequence)f2.g.b, (CharSequence)this.f.b) && TextUtils.equals((CharSequence)f2.g.f, (CharSequence)this.f.f);
-    }
-
-    public boolean b(f f2) {
-        return "Android".equalsIgnoreCase(f2.e) && this.d.equals(f2.d) && this.a(this.f.d, f2.g.d) && this.a(this.f.b, f2.g.b) && this.a(this.f.f, f2.g.f);
-    }
-
-    private boolean a(String string, String string2) {
-        return TextUtils.equals((CharSequence)string, (CharSequence)string2) || TextUtils.isEmpty((CharSequence)string2) || string2.contains("*") && string != null && Pattern.matches(string2.replace("*", ".*"), string);
     }
 }
 

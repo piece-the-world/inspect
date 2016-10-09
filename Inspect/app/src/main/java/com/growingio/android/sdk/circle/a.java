@@ -10,9 +10,15 @@
  *  android.content.Context
  *  android.content.res.Configuration
  *  android.content.res.Resources
+ *  android.graphics.Paint
+ *  android.graphics.Paint$Style
  *  android.graphics.Point
  *  android.graphics.Rect
+ *  android.graphics.RectF
  *  android.graphics.drawable.Drawable
+ *  android.graphics.drawable.ShapeDrawable
+ *  android.graphics.drawable.shapes.RoundRectShape
+ *  android.graphics.drawable.shapes.Shape
  *  android.os.Build
  *  android.os.Build$VERSION
  *  android.support.annotation.NonNull
@@ -37,9 +43,14 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
+import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
@@ -49,24 +60,24 @@ import android.view.ViewParent;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Toast;
-import com.growingio.android.sdk.b.i;
 import com.growingio.android.sdk.b.l;
+import com.growingio.android.sdk.circle.HybridEventEditDialog;
+import com.growingio.android.sdk.circle.ao;
 import com.growingio.android.sdk.circle.aq;
-import com.growingio.android.sdk.circle.ar;
 import com.growingio.android.sdk.circle.b;
-import com.growingio.android.sdk.circle.bu;
+import com.growingio.android.sdk.circle.bd;
+import com.growingio.android.sdk.circle.bi;
 import com.growingio.android.sdk.circle.c;
-import com.growingio.android.sdk.circle.ct;
-import com.growingio.android.sdk.circle.cy;
 import com.growingio.android.sdk.circle.d;
 import com.growingio.android.sdk.circle.e;
 import com.growingio.android.sdk.circle.f;
 import com.growingio.android.sdk.circle.g;
 import com.growingio.android.sdk.circle.h;
-import com.growingio.android.sdk.circle.j;
+import com.growingio.android.sdk.circle.i;
+import com.growingio.android.sdk.circle.k;
 import com.growingio.android.sdk.collection.GConfig;
-import com.growingio.android.sdk.utils.m;
-import com.growingio.android.sdk.utils.o;
+import com.growingio.android.sdk.utils.j;
+import com.growingio.android.sdk.utils.n;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -76,7 +87,7 @@ import java.util.List;
 
 @TargetApi(value=15)
 public class a
-extends bu {
+extends aq {
     private int b = 2005;
     private final int c = 10;
     static int a;
@@ -89,12 +100,12 @@ extends bu {
     private boolean j = false;
     private View k;
     private Point l = null;
-    private h m;
-    private bu n;
-    private cy o;
-    private aq p;
+    private i m;
+    private aq n;
+    private bi o;
+    private ao p;
     private Rect q;
-    private i r;
+    private com.growingio.android.sdk.b.i r;
     private boolean s = false;
     private Rect t = new Rect();
     private List u = new ArrayList();
@@ -108,62 +119,76 @@ extends bu {
     private l C;
     private Runnable D;
 
-    j getCircleManager() {
-        return j.e();
+    com.growingio.android.sdk.collection.c getAppState() {
+        return com.growingio.android.sdk.collection.c.k();
+    }
+
+    k getCircleManager() {
+        return k.e();
     }
 
     @SuppressLint(value={"RtlHardcoded"})
     public a(Context context) {
         super(context);
-        this.A = new d(this);
-        this.B = new e(this);
-        this.C = new f(this);
-        this.D = new g(this);
+        this.A = new e(this);
+        this.B = new f(this);
+        this.C = new g(this);
+        this.D = new h(this);
         this.a();
     }
 
     public void a() {
-        this.setBackgroundDrawable(com.growingio.android.sdk.utils.g.b("growing_float_bg_clickable"));
+        a = j.a(this.getContext(), 48.0f);
+        ShapeDrawable shapeDrawable = new ShapeDrawable();
+        shapeDrawable.setShape((Shape)new RoundRectShape(new float[]{(float)a / 2.0f, (float)a / 2.0f, (float)a / 2.0f, (float)a / 2.0f, (float)a / 2.0f, (float)a / 2.0f, (float)a / 2.0f, (float)a / 2.0f}, null, null));
+        shapeDrawable.getPaint().setStyle(Paint.Style.FILL);
+        shapeDrawable.getPaint().setColor(-436254684);
+        shapeDrawable.getPaint().setAntiAlias(true);
+        this.setBackgroundDrawable((Drawable)shapeDrawable);
         this.w = (WindowManager)this.getContext().getApplicationContext().getSystemService("window");
-        this.y = com.growingio.android.sdk.utils.i.a(this.getContext(), 4.0f);
-        a = com.growingio.android.sdk.utils.i.a(this.getContext(), 48.0f);
+        this.y = j.a(this.getContext(), 4.0f);
         if (Build.VERSION.SDK_INT < 19) {
             this.b = 2002;
         }
         this.f();
-        this.m = new h(this.getContext());
+        this.m = new i(this.getContext());
         this.setOnClickListener((View.OnClickListener)new b(this));
     }
 
     private void f() {
-        this.n = new bu(this.getContext());
-        this.n.setBackgroundDrawable(com.growingio.android.sdk.utils.g.b("growing_hit_view_bg"));
+        this.n = new aq(this.getContext());
+        float f2 = j.a(this.getContext(), 3.0f);
+        ShapeDrawable shapeDrawable = new ShapeDrawable((Shape)new RoundRectShape(new float[]{f2, f2, f2, f2, f2, f2, f2, f2}, null, null));
+        shapeDrawable.getPaint().setColor(1291798564);
+        shapeDrawable.getPaint().setStrokeWidth((float)j.a(this.getContext(), 1.0f));
+        shapeDrawable.getPaint().setAntiAlias(true);
+        this.n.setBackgroundDrawable((Drawable)shapeDrawable);
         int n2 = 312;
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(0, 0, this.b, n2, -3);
         layoutParams.gravity = 51;
         layoutParams.setTitle((CharSequence)("MaskWindow:" + this.getContext().getPackageName()));
         this.w.addView((View)this.n, (ViewGroup.LayoutParams)layoutParams);
-        this.o = new cy(this.getContext());
+        this.o = new bi(this.getContext());
         this.o.setFloatType(this.b);
         this.o.a();
-        if (GConfig.o().r()) {
-            this.o.setTags(com.growingio.android.sdk.a.e.c().d());
+        if (GConfig.q().s()) {
+            this.o.setTags(com.growingio.android.sdk.a.g.c().d());
         }
     }
 
     public void b() {
         this.g();
         if (this.getParent() == null) {
-            Point point = GConfig.o().s();
+            Point point = GConfig.q().t();
             int n2 = 296;
-            Activity activity = j.e().d();
-            if (this.b != 2005 && !com.growingio.android.sdk.utils.f.d()) {
+            Activity activity = k.e().d();
+            if (this.b != 2005 && !com.growingio.android.sdk.utils.g.d()) {
                 Toast.makeText((Context)activity, (CharSequence)"\u7f3a\u5c11 SYSTEM_ALERT_WINDOW \u6743\u9650\u65e0\u6cd5\u5708\u9009, \u8bf7\u4f7f\u7528Android 4.4\u4ee5\u4e0a\u7cfb\u7edf", (int)0).show();
                 return;
             }
-            if (GConfig.o().p()) {
-                point.x = (ct.c() - a) / 2;
-                point.y = (ct.e() - a) / 2;
+            if (GConfig.q().r()) {
+                point.x = (bd.b() - a) / 2;
+                point.y = (bd.d() - a) / 2;
             }
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(a, a, this.b, n2, -3);
             layoutParams.gravity = 51;
@@ -181,9 +206,9 @@ extends bu {
     }
 
     private void g() {
-        if (GConfig.o().p()) {
+        if (GConfig.q().r()) {
             if (this.p == null) {
-                this.p = new aq(this.getContext());
+                this.p = new ao(this.getContext());
                 int n2 = 296;
                 WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(-1, -1, this.b, n2, -3);
                 layoutParams.gravity = 51;
@@ -198,25 +223,25 @@ extends bu {
         }
     }
 
-    public boolean onTouchEvent(@NonNull MotionEvent motionEvent) {
+    public boolean onTouchEvent(@NonNull MotionEvent event) {
         boolean bl2 = false;
-        switch (motionEvent.getAction()) {
+        switch (event.getAction()) {
             case 0: {
-                this.h = motionEvent.getX();
-                this.i = motionEvent.getY();
-                this.f = motionEvent.getRawX();
-                this.g = motionEvent.getRawY();
-                this.d = motionEvent.getRawX();
-                this.e = motionEvent.getRawY();
+                this.h = event.getX();
+                this.i = event.getY();
+                this.f = event.getRawX();
+                this.g = event.getRawY();
+                this.d = event.getRawX();
+                this.e = event.getRawY();
                 this.j = true;
-                this.x = o.c();
+                this.x = n.c();
                 this.o.c();
                 break;
             }
             case 2: {
                 if (!this.j) break;
-                this.d = motionEvent.getRawX();
-                this.e = motionEvent.getRawY();
+                this.d = event.getRawX();
+                this.e = event.getRawY();
                 if (Math.abs(this.d - this.f) < (float)this.y && Math.abs(this.e - this.g) < (float)this.y) break;
                 if (this.p != null) {
                     this.l();
@@ -243,10 +268,10 @@ extends bu {
                 if (this.q != null) {
                     this.u.clear();
                     this.a(this.x);
-                    m.a(this.x, this.C);
+                    com.growingio.android.sdk.utils.k.a(this.x, this.C);
                     if (this.u.size() > 0) {
-                        View view = ((i)this.u.get((int)0)).c;
-                        if (view instanceof WebView || com.growingio.android.sdk.utils.a.c((Object)view)) {
+                        View view = ((com.growingio.android.sdk.b.i)this.u.get((int)0)).c;
+                        if (view instanceof WebView || com.growingio.android.sdk.utils.a.d((Object)view)) {
                             this.a(view);
                         } else {
                             Collections.sort(this.u, this.A);
@@ -254,15 +279,15 @@ extends bu {
                         }
                         this.k();
                     } else {
-                        j.e().l();
+                        k.e().l();
                     }
                     this.q = null;
                     bl2 = true;
                 } else if (Math.abs(this.d - this.f) < (float)this.y && Math.abs(this.e - this.g) < (float)this.y) {
                     this.performClick();
                 } else {
-                    this.o.setVisibility(GConfig.o().r() ? 0 : 8);
-                    j.e().l();
+                    this.o.setVisibility(GConfig.q().s() ? 0 : 8);
+                    k.e().l();
                 }
                 this.x = null;
                 this.removeCallbacks(this.D);
@@ -285,10 +310,9 @@ extends bu {
 
     private void a(String string, List list) {
         this.setVisibility(8);
-        ar ar2 = new ar();
-        String string2 = com.growingio.android.sdk.collection.c.h().o();
-        ar2.a((Context)com.growingio.android.sdk.collection.c.h().f(), list, string2, string, this.s, com.growingio.android.sdk.collection.c.h().b());
-        this.a(ar2, ar.class.getName());
+        HybridEventEditDialog hybridEventEditDialog = new HybridEventEditDialog();
+        String string2 = this.getAppState().t();
+        hybridEventEditDialog.a(this.getAppState().i(), list, string2, this.getAppState().b(), new d(this, hybridEventEditDialog));
     }
 
     private void h() {
@@ -304,8 +328,8 @@ extends bu {
             n5 = 0;
         }
         boolean bl2 = this.getContext().getResources().getConfiguration().orientation == 1;
-        int n6 = ct.c() - this.getWidth();
-        int n7 = ct.e() - this.getHeight();
+        int n6 = bd.b() - this.getWidth();
+        int n7 = bd.d() - this.getHeight();
         int n8 = n2 = bl2 ? n6 : n7;
         if (n4 > n2) {
             n4 = n2;
@@ -331,16 +355,16 @@ extends bu {
         this.q = null;
         this.u.clear();
         this.v = false;
-        m.a(this.x, this.B);
+        com.growingio.android.sdk.utils.k.a(this.x, this.B);
         this.j();
     }
 
     private void j() {
         if (this.u.size() > 0) {
-            this.r = (i)this.u.get(this.u.size() - 1);
+            this.r = (com.growingio.android.sdk.b.i)this.u.get(0);
             this.q = new Rect();
-            com.growingio.android.sdk.utils.i.a(this.r.c, this.q, this.r.f);
-            if (this.r.c instanceof WebView || com.growingio.android.sdk.utils.a.c((Object)this.r.c)) {
+            j.a(this.r.c, this.q, this.r.f);
+            if (this.r.c instanceof WebView || com.growingio.android.sdk.utils.a.d((Object)this.r.c)) {
                 this.n.setVisibility(8);
                 this.m.setVisibility(8);
                 int[] arrn = new int[2];
@@ -384,17 +408,17 @@ extends bu {
     }
 
     public void a(View view, float f2, float f3) {
-        com.growingio.android.sdk.utils.i.a(view, "_vds_hybrid.hoverOn", Float.valueOf(f2), Float.valueOf(f3));
+        j.a(view, "_vds_hybrid.hoverOn", Float.valueOf(f2), Float.valueOf(f3));
     }
 
     public void a(View view) {
-        com.growingio.android.sdk.utils.i.a(view, "_vds_hybrid.findElementAtPoint", new Object[0]);
+        j.a(view, "_vds_hybrid.findElementAtPoint", new Object[0]);
         this.k = view;
     }
 
     public void c() {
         if (this.k != null) {
-            com.growingio.android.sdk.utils.i.a(this.k, "_vds_hybrid.cancelHover", new Object[0]);
+            j.a(this.k, "_vds_hybrid.cancelHover", new Object[0]);
             this.k = null;
         }
     }
@@ -431,7 +455,7 @@ extends bu {
                 this.w.removeView((View)this.p);
             }
             this.p = null;
-            GConfig.o().a(false);
+            GConfig.q().a(false);
         }
     }
 
@@ -450,24 +474,28 @@ extends bu {
         }
     }
 
-    public void setTags(List list) {
-        this.o.setTags(list);
+    public void setTags(List tags) {
+        this.o.setTags(tags);
     }
 
     public boolean e() {
         return this.j;
     }
 
-    static /* synthetic */ bu a(a a2) {
+    static /* synthetic */ aq a(a a2) {
         return a2.n;
     }
 
-    static /* synthetic */ cy b(a a2) {
+    static /* synthetic */ bi b(a a2) {
         return a2.o;
     }
 
     static /* synthetic */ void c(a a2) {
         a2.l();
+    }
+
+    static /* synthetic */ void a(a a2, DialogFragment dialogFragment, String string) {
+        a2.a(dialogFragment, string);
     }
 
     static /* synthetic */ boolean b(View view) {
@@ -503,7 +531,7 @@ extends bu {
         return a2.a(rect, rect2);
     }
 
-    static /* synthetic */ i i(a a2) {
+    static /* synthetic */ com.growingio.android.sdk.b.i i(a a2) {
         return a2.r;
     }
 

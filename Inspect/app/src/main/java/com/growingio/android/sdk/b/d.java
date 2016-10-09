@@ -62,13 +62,13 @@ implements Parcelable {
         return 0;
     }
 
-    public void writeToParcel(Parcel parcel, int n2) {
-        parcel.writeString(this.a);
-        parcel.writeString(this.b);
-        parcel.writeString(this.c);
-        parcel.writeString(this.d);
-        parcel.writeString(this.e);
-        parcel.writeString(this.f);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.a);
+        dest.writeString(this.b);
+        dest.writeString(this.c);
+        dest.writeString(this.d);
+        dest.writeString(this.e);
+        dest.writeString(this.f);
     }
 
     public d() {

@@ -2,26 +2,40 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.widget.RadioGroup
- *  android.widget.RadioGroup$OnCheckedChangeListener
+ *  android.os.AsyncTask
+ *  android.util.Pair
  */
 package com.growingio.android.sdk.circle;
 
-import android.widget.RadioGroup;
-import com.growingio.android.sdk.circle.ar;
+import android.os.AsyncTask;
+import android.util.Pair;
+import com.growingio.android.sdk.a.e;
+import com.growingio.android.sdk.circle.ai;
 
 class av
-implements RadioGroup.OnCheckedChangeListener {
-    final /* synthetic */ ar a;
+extends AsyncTask {
+    private String a;
+    private ai b;
 
-    av(ar ar2) {
-        this.a = ar2;
+    av(ai ai2, String string) {
+        this.a = string;
+        this.b = ai2;
     }
 
-    public void onCheckedChanged(RadioGroup radioGroup, int n2) {
-        ar.d(this.a, false);
-        ar.v(this.a);
-        ar.q(this.a);
+    protected /* varargs */ Pair a(Void ... arrvoid) {
+        return e.a().a(this.a);
+    }
+
+    protected void a(Pair pair) {
+        this.b.a(pair);
+    }
+
+    protected /* synthetic */ void onPostExecute(Object object) {
+        this.a((Pair)object);
+    }
+
+    protected /* synthetic */ Object doInBackground(Object[] arrobject) {
+        return this.a((Void[])arrobject);
     }
 }
 

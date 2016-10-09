@@ -18,12 +18,12 @@ extends FrameLayout {
         super(context);
     }
 
-    public GIOCircleRootPanel(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
+    public GIOCircleRootPanel(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
-    public GIOCircleRootPanel(Context context, AttributeSet attributeSet, int n2) {
-        super(context, attributeSet, n2);
+    public GIOCircleRootPanel(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 }
 

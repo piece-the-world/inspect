@@ -1,38 +1,30 @@
 /*
  * Decompiled with CFR 0_115.
+ * 
+ * Could not load the following classes:
+ *  android.database.sqlite.SQLiteDatabase
  */
 package com.growingio.android.sdk.collection;
 
-import com.growingio.android.sdk.collection.ad;
+import android.database.sqlite.SQLiteDatabase;
+import com.growingio.android.sdk.collection.g;
 
-class h {
-    static final /* synthetic */ int[] a;
+class h
+implements Runnable {
+    final /* synthetic */ g a;
 
-    static {
-        a = new int[ad.values().length];
+    h(g g2) {
+        this.a = g2;
+    }
+
+    @Override
+    public void run() {
         try {
-            h.a[ad.a.ordinal()] = 1;
+            SQLiteDatabase sQLiteDatabase = g.a(this.a).getReadableDatabase();
+            sQLiteDatabase.close();
         }
-        catch (NoSuchFieldError var0) {
-            // empty catch block
-        }
-        try {
-            h.a[ad.b.ordinal()] = 2;
-        }
-        catch (NoSuchFieldError var0_1) {
-            // empty catch block
-        }
-        try {
-            h.a[ad.c.ordinal()] = 3;
-        }
-        catch (NoSuchFieldError var0_2) {
-            // empty catch block
-        }
-        try {
-            h.a[ad.d.ordinal()] = 4;
-        }
-        catch (NoSuchFieldError var0_3) {
-            // empty catch block
+        catch (Exception var1_2) {
+            var1_2.printStackTrace();
         }
     }
 }

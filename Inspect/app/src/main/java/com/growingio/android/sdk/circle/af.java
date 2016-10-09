@@ -3,23 +3,20 @@
  */
 package com.growingio.android.sdk.circle;
 
-import com.growingio.android.sdk.b.g;
-import com.growingio.android.sdk.b.i;
-import com.growingio.android.sdk.circle.j;
+import com.growingio.android.sdk.circle.k;
+import com.growingio.android.sdk.collection.t;
 
 class af
 implements Runnable {
-    final /* synthetic */ i a;
-    final /* synthetic */ j b;
+    final /* synthetic */ k a;
 
-    af(j j2, i i2) {
-        this.b = j2;
-        this.a = i2;
+    af(k k2) {
+        this.a = k2;
     }
 
     @Override
     public void run() {
-        this.b.a("click", this.a, null);
+        t.d().a("/GioWindow/FloatViewContainer[0]/CircleButton[0]", null, false);
     }
 }
 

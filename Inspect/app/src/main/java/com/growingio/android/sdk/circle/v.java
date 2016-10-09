@@ -3,20 +3,22 @@
  */
 package com.growingio.android.sdk.circle;
 
-import com.growingio.android.sdk.circle.j;
-import com.growingio.android.sdk.collection.q;
+import com.growingio.android.sdk.circle.aj;
+import com.growingio.android.sdk.circle.k;
 
 class v
-implements Runnable {
-    final /* synthetic */ j a;
+implements aj {
+    final /* synthetic */ k a;
 
-    v(j j2) {
-        this.a = j2;
+    v(k k2) {
+        this.a = k2;
     }
 
     @Override
-    public void run() {
-        q.d().a("/GioWindow/FloatViewContainer[0]/TextView[0]", null, false);
+    public void a(String string) {
+        if (k.e(this.a) != null && k.e(this.a).b() && k.e(this.a).a()) {
+            k.e(this.a).a(string);
+        }
     }
 }
 

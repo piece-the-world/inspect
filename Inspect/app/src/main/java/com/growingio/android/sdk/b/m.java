@@ -30,7 +30,7 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 import com.growingio.android.sdk.b.g;
-import com.growingio.android.sdk.circle.j;
+import com.growingio.android.sdk.circle.k;
 import com.growingio.android.sdk.collection.GConfig;
 import com.growingio.android.sdk.collection.c;
 import com.growingio.android.sdk.utils.LogUtil;
@@ -48,14 +48,16 @@ extends g {
 
     @Override
     public JSONObject b() {
-        JSONObject jSONObject = this.i();
+        JSONObject jSONObject = this.j();
         try {
             jSONObject.put("t", (Object)"vst");
+            this.c(jSONObject);
             this.a(jSONObject);
+            this.b(jSONObject);
             jSONObject.put("b", (Object)"native");
             jSONObject.put("l", (Object)Locale.getDefault().toString());
-            jSONObject.put("ch", (Object)this.h().l());
-            Context context = this.g().g();
+            jSONObject.put("ch", (Object)this.i().n());
+            Context context = this.h().j();
             DisplayMetrics displayMetrics = new DisplayMetrics();
             Display display = ((WindowManager)context.getSystemService("window")).getDefaultDisplay();
             if (Build.VERSION.SDK_INT >= 17) {
@@ -77,11 +79,11 @@ extends g {
                 jSONObject.put("ca", (Object)new StringBuffer(string).insert(3, '-').toString());
             }
             PackageManager packageManager = context.getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
-            jSONObject.put("cv", (Object)(j.e().a() ? "0.9.90_6a708c0" : packageInfo.versionName));
-            jSONObject.put("av", (Object)"0.9.90_6a708c0");
+            PackageInfo packageInfo = packageManager.getPackageInfo(this.h().b(), 0);
+            jSONObject.put("cv", (Object)(k.e().a() ? "0.9.98_355b84e" : packageInfo.versionName));
+            jSONObject.put("av", (Object)"0.9.98_355b84e");
             jSONObject.put("sn", (Object)packageManager.getApplicationLabel(context.getApplicationInfo()));
-            jSONObject.put("v", (Object)GConfig.d);
+            jSONObject.put("v", (Object)GConfig.sGrowingScheme);
             jSONObject.put("p", (Object)this.a);
         }
         catch (JSONException var2_3) {

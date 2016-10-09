@@ -2,97 +2,62 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.annotation.TargetApi
  *  android.content.Context
- *  android.content.pm.PackageInfo
  *  android.content.pm.PackageManager
- *  android.content.pm.PackageManager$NameNotFoundException
- *  android.content.res.Resources
- *  android.graphics.drawable.Drawable
- *  android.view.LayoutInflater
- *  android.view.View
- *  android.view.ViewGroup
  */
 package com.growingio.android.sdk.utils;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-@TargetApi(value=14)
 public class g {
-    private static Context a;
-    private static int b;
+    private static boolean a;
+    private static boolean b;
+    private static boolean c;
+    private static boolean d;
+    private static boolean e;
+    private static boolean f;
 
     public static boolean a() {
-        return a != null;
+        return a;
     }
 
     public static boolean b() {
-        return 70 <= b;
+        return b;
     }
 
     public static boolean c() {
-        return g.a() && g.b();
+        return c;
     }
 
-    public static boolean a(Context context) {
-        if (a != null) {
-            return true;
+    public static boolean d() {
+        return d;
+    }
+
+    public static boolean e() {
+        return f;
+    }
+
+    public static void a(Context context) {
+        if (e) {
+            return;
         }
-        try {
-            a = context.createPackageContext("com.growingio.android.growingio.app", 2);
-            PackageInfo packageInfo = a.getPackageManager().getPackageInfo("com.growingio.android.growingio.app", 0);
-            b = packageInfo.versionCode;
-        }
-        catch (PackageManager.NameNotFoundException var1_2) {
-            // empty catch block
-        }
-        return a != null;
+        a = g.a(context, "android.permission.INTERNET");
+        b = g.a(context, "android.permission.ACCESS_NETWORK_STATE");
+        c = g.a(context, "android.permission.WRITE_EXTERNAL_STORAGE");
+        d = g.a(context, "android.permission.SYSTEM_ALERT_WINDOW");
+        f = g.a(context, "android.permission.READ_PHONE_STATE");
+        e = true;
     }
 
-    public static /* varargs */ String a(String string, Object ... arrobject) {
-        try {
-            int n2 = a.getResources().getIdentifier(string, "string", "com.growingio.android.growingio.app");
-            return a.getString(n2, arrobject);
-        }
-        catch (Exception var2_3) {
-            return "";
-        }
+    public static boolean a(Context context, String string) {
+        PackageManager packageManager = context.getPackageManager();
+        return 0 == packageManager.checkPermission(string, context.getPackageName());
     }
 
-    public static int a(String string) {
-        return a.getResources().getColor(g.d(string));
-    }
-
-    public static Drawable b(String string) {
-        return a.getResources().getDrawable(g.f(string));
-    }
-
-    public static View a(String string, ViewGroup viewGroup, boolean bl2) {
-        return a == null ? null : LayoutInflater.from((Context)a).inflate(g.e(string), viewGroup, bl2);
-    }
-
-    public static int c(String string) {
-        return a.getResources().getIdentifier(string, "id", "com.growingio.android.growingio.app");
-    }
-
-    private static int d(String string) {
-        return a.getResources().getIdentifier(string, "color", "com.growingio.android.growingio.app");
-    }
-
-    private static int e(String string) {
-        return a.getResources().getIdentifier(string, "layout", "com.growingio.android.growingio.app");
-    }
-
-    private static int f(String string) {
-        return a.getResources().getIdentifier(string, "drawable", "com.growingio.android.growingio.app");
+    static {
+        e = false;
+        f = false;
     }
 }
 

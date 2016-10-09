@@ -10,7 +10,7 @@ package com.growingio.android.sdk.utils;
 import android.util.Log;
 import android.util.Pair;
 import com.growingio.android.sdk.collection.GConfig;
-import com.growingio.android.sdk.collection.m;
+import com.growingio.android.sdk.collection.n;
 import com.growingio.android.sdk.utils.LogUtil;
 import com.growingio.android.sdk.utils.d;
 import java.io.ByteArrayOutputStream;
@@ -140,14 +140,14 @@ public class c {
                 catch (IOException var8_13) {}
             }
         }
-        if (GConfig.a) {
+        if (GConfig.DEBUG) {
             Log.w((String)"GrowingIO.HttpService", (String)("performRequest: code " + pair.first + " url:" + this.b + " response:" + new String((byte[])pair.second)));
         }
         if (bl2 && !bl3) {
             if (string == null) {
                 string = String.valueOf(pair.first);
             }
-            m.a(string);
+            n.a(string);
         }
         return pair;
     }

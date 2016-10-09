@@ -2,25 +2,27 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.view.View
- *  android.view.View$OnClickListener
+ *  android.content.Context
+ *  android.widget.Toast
  */
 package com.growingio.android.sdk.circle;
 
-import android.view.View;
-import com.growingio.android.sdk.circle.ar;
-import com.growingio.android.sdk.utils.g;
+import android.content.Context;
+import android.widget.Toast;
+import com.growingio.android.sdk.circle.aw;
+import com.growingio.android.sdk.circle.ax;
 
 class ay
-implements View.OnClickListener {
-    final /* synthetic */ ar a;
+implements Runnable {
+    final /* synthetic */ ax a;
 
-    ay(ar ar2) {
-        this.a = ar2;
+    ay(ax ax2) {
+        this.a = ax2;
     }
 
-    public void onClick(View view) {
-        ar.a(this.a, view, g.a("growing_label_strict_position_desc", new Object[0]));
+    @Override
+    public void run() {
+        Toast.makeText((Context)aw.b(this.a.a), (CharSequence)"\u5f00\u59cb\u51c6\u5907\u5708\u9009", (int)1).show();
     }
 }
 

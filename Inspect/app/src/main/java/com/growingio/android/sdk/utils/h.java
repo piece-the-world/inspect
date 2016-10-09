@@ -2,45 +2,40 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.os.Handler
- *  android.os.Looper
+ *  android.content.Context
+ *  android.content.SharedPreferences
+ *  android.content.SharedPreferences$Editor
+ *  android.text.TextUtils
+ *  android.util.SparseArray
  */
 package com.growingio.android.sdk.utils;
 
-import android.os.Handler;
-import android.os.Looper;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.text.TextUtils;
+import android.util.SparseArray;
 
 public class h {
-    private static final Object b = new Object();
-    private static boolean c = false;
-    private static Handler d = null;
+    private static SharedPreferences a;
 
-    /*
-     * WARNING - Removed try catching itself - possible behaviour change.
-     */
-    private static Handler a() {
-        Object object = b;
-        synchronized (object) {
-            if (d == null) {
-                if (c) {
-                    throw new RuntimeException("Did not yet override the UI thread");
-                }
-                d = new Handler(Looper.getMainLooper());
-            }
-            return d;
+    public static void a(Context context) {
+        a = context.getSharedPreferences("growing_persist_data", 0);
+    }
+
+    public static void a(SparseArray sparseArray) {
+        for (int i2 = 0; i2 < 10; ++i2) {
+            String string = a.getString("cs" + i2, null);
+            if (TextUtils.isEmpty((CharSequence)string)) continue;
+            sparseArray.put(i2, (Object)string);
         }
     }
 
-    public static void a(Runnable runnable) {
-        h.a().post(runnable);
+    public static void a(int n2) {
+        a.edit().remove("cs" + n2).commit();
     }
 
-    public static void a(Runnable runnable, long l2) {
-        h.a().postDelayed(runnable, l2);
-    }
-
-    public static void b(Runnable runnable) {
-        h.a().removeCallbacks(runnable);
+    public static void a(int n2, String string) {
+        a.edit().putString("cs" + n2, string).commit();
     }
 }
 

@@ -25,94 +25,95 @@ public class Configuration {
     boolean m = true;
     boolean n = true;
     boolean o = false;
-    int p = 50;
-    long q = 30000;
-    long r = 60000;
-    long s = 0x100000;
-    ActivityLifecycleCallbacksRegistrar t;
+    boolean p = false;
+    int q = 300;
+    long r = 30000;
+    long s = 30000;
+    long t = 0x300000;
+    ActivityLifecycleCallbacksRegistrar u;
 
-    public Configuration setSampling(double d2) {
-        this.f = d2;
+    public Configuration setSampling(double sampling) {
+        this.f = sampling;
         return this;
     }
 
-    public Configuration setDisabled(boolean bl2) {
-        this.g = bl2;
+    public Configuration setDisabled(boolean disabled) {
+        this.g = disabled;
         return this;
     }
 
-    public Configuration setDisableImpression(boolean bl2) {
-        this.h = bl2;
+    public Configuration setDisableImpression(boolean disableImpression) {
+        this.h = disableImpression;
         return this;
     }
 
-    public Configuration setThrottle(boolean bl2) {
-        this.i = bl2;
+    public Configuration setThrottle(boolean throttle) {
+        this.i = throttle;
         return this;
     }
 
-    public Configuration setTrackWebView(boolean bl2) {
-        this.j = bl2;
+    public Configuration setTrackWebView(boolean trackWebView) {
+        this.j = trackWebView;
         return this;
     }
 
-    public Configuration setDebugMode(boolean bl2) {
-        this.k = bl2;
+    public Configuration setDebugMode(boolean debugMode) {
+        this.k = debugMode;
         return this;
     }
 
-    public Configuration setTestMode(boolean bl2) {
-        this.l = bl2;
+    public Configuration setTestMode(boolean testMode) {
+        this.l = testMode;
         return this;
     }
 
-    public Configuration setDiagnose(boolean bl2) {
-        this.m = bl2;
+    public Configuration setDiagnose(boolean diagnose) {
+        this.m = diagnose;
         return this;
     }
 
-    public Configuration setChannel(String string) {
-        this.e = string;
+    public Configuration setChannel(String channel) {
+        this.e = channel;
         return this;
     }
 
-    public Configuration setFlushInterval(long l2) {
-        this.r = l2;
+    public Configuration setFlushInterval(long flushInterval) {
+        this.s = flushInterval;
         return this;
     }
 
-    public Configuration setCellularDataLimit(long l2) {
-        this.s = l2;
+    public Configuration setCellularDataLimit(long cellularDataLimit) {
+        this.t = cellularDataLimit;
         return this;
     }
 
-    public Configuration setActivityLifecycleCallbacksRegistrar(ActivityLifecycleCallbacksRegistrar activityLifecycleCallbacksRegistrar) {
-        this.t = activityLifecycleCallbacksRegistrar;
+    public Configuration setActivityLifecycleCallbacksRegistrar(ActivityLifecycleCallbacksRegistrar registrar) {
+        this.u = registrar;
         return this;
     }
 
-    public Configuration setURLScheme(String string) {
-        this.c = string;
+    public Configuration setURLScheme(String urlScheme) {
+        this.c = urlScheme;
         return this;
     }
 
-    public Configuration setDeviceId(String string) {
-        this.d = string;
+    public Configuration setDeviceId(String deviceId) {
+        this.d = deviceId;
         return this;
     }
 
-    public Configuration setProjectId(String string) {
-        this.b = string;
+    public Configuration setProjectId(String projectId) {
+        this.b = projectId;
         return this;
     }
 
-    public Configuration setBulkSize(int n2) {
-        this.p = n2;
+    public Configuration setBulkSize(int bulkSize) {
+        this.q = bulkSize;
         return this;
     }
 
-    public Configuration setSessionInterval(long l2) {
-        this.q = l2;
+    public Configuration setSessionInterval(long sessionInterval) {
+        this.r = sessionInterval;
         return this;
     }
 
@@ -121,8 +122,8 @@ public class Configuration {
         return this;
     }
 
-    public Configuration setApp(Application application) {
-        this.a = application;
+    public Configuration setApp(Application app) {
+        this.a = app;
         return this;
     }
 
@@ -131,15 +132,20 @@ public class Configuration {
         return this;
     }
 
-    public Configuration(String string) {
-        this.b = string;
+    public Configuration disableCellularImp() {
+        this.p = true;
+        return this;
+    }
+
+    public Configuration(String projectId) {
+        this.b = projectId;
     }
 
     public Configuration() {
     }
 
-    public Configuration setContext(Application application) {
-        this.a = application;
+    public Configuration setContext(Application context) {
+        this.a = context;
         return this;
     }
 }

@@ -15,7 +15,7 @@ import com.growingio.android.sdk.b.i;
 import com.growingio.android.sdk.b.l;
 import com.growingio.android.sdk.collection.GConfig;
 import com.growingio.android.sdk.collection.a;
-import com.growingio.android.sdk.collection.ag;
+import com.growingio.android.sdk.collection.ak;
 
 class b
 extends l {
@@ -34,11 +34,11 @@ extends l {
             a.b(this.a).add(b2);
             bl2 = true;
         }
-        if (i2.c instanceof WebView || com.growingio.android.sdk.utils.a.c((Object)i2.c)) {
-            if (GConfig.a) {
+        if (i2.c instanceof WebView || com.growingio.android.sdk.utils.a.d((Object)i2.c)) {
+            if (GConfig.DEBUG) {
                 Log.d((String)"GIO.ActionCalculator", (String)("traverseCallBack: update view node for " + (Object)i2.c));
             }
-            ag.a(i2.c, i2, bl2);
+            ak.a(i2.c, i2, bl2);
         }
     }
 }

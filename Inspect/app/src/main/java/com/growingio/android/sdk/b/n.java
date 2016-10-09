@@ -11,7 +11,7 @@ package com.growingio.android.sdk.b;
 import android.text.TextUtils;
 import com.growingio.android.sdk.b.g;
 import com.growingio.android.sdk.b.i;
-import com.growingio.android.sdk.collection.af;
+import com.growingio.android.sdk.collection.aj;
 import com.growingio.android.sdk.collection.c;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,8 +38,8 @@ extends g {
         try {
             JSONObject jSONObject = new JSONObject(this.a);
             String string = jSONObject.getString("t");
-            jSONObject.put("s", (Object)af.a());
-            this.a(jSONObject, "d", this.g().b());
+            jSONObject.put("s", (Object)aj.a());
+            this.a(jSONObject, "d", this.h().b());
             this.a(jSONObject, "p", this.c);
             if (string.equals("imp") || string.equals("clck")) {
                 int n2;
@@ -63,11 +63,15 @@ extends g {
                 }
             } else if (string.equals("page")) {
                 this.e = 1;
-                this.a(jSONObject);
+                this.c(jSONObject);
                 String string2 = jSONObject.optString("rp");
                 if (!TextUtils.isEmpty((CharSequence)string2)) {
                     this.a(jSONObject, "rp", this.c);
                 }
+            }
+            if (!string.equals("imp")) {
+                this.a(jSONObject);
+                this.b(jSONObject);
             }
             if (jSONObject.opt("tm") == null) {
                 jSONObject.put("tm", System.currentTimeMillis());
@@ -89,7 +93,7 @@ extends g {
     }
 
     @Override
-    public int f() {
+    public int g() {
         return this.e;
     }
 }

@@ -2,29 +2,26 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.app.Activity
+ *  android.view.ViewTreeObserver
+ *  android.view.ViewTreeObserver$OnScrollChangedListener
  */
 package com.growingio.android.sdk.collection;
 
-import android.app.Activity;
-import com.growingio.android.sdk.b.c;
-import com.growingio.android.sdk.b.g;
-import com.growingio.android.sdk.collection.q;
+import android.view.ViewTreeObserver;
+import com.growingio.android.sdk.circle.k;
+import com.growingio.android.sdk.collection.t;
 
 class v
-implements Runnable {
-    final /* synthetic */ q a;
+implements ViewTreeObserver.OnScrollChangedListener {
+    final /* synthetic */ t a;
 
-    v(q q2) {
-        this.a = q2;
+    v(t t2) {
+        this.a = t2;
     }
 
-    @Override
-    public void run() {
-        Activity activity = q.b(this.a).f();
-        if (activity != null) {
-            this.a.a(new c(activity, q.d(this.a), q.e(this.a), true));
-        }
+    public void onScrollChanged() {
+        t.a(this.a);
+        k.e().f();
     }
 }
 

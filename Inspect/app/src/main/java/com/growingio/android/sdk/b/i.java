@@ -6,7 +6,6 @@
  *  android.annotation.TargetApi
  *  android.graphics.Rect
  *  android.support.v4.view.ViewPager
- *  android.support.v7.widget.RecyclerView
  *  android.text.TextUtils
  *  android.util.LruCache
  *  android.view.View
@@ -30,7 +29,6 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.graphics.Rect;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.LruCache;
 import android.view.View;
@@ -49,13 +47,11 @@ import com.growingio.android.sdk.b.d;
 import com.growingio.android.sdk.b.j;
 import com.growingio.android.sdk.b.k;
 import com.growingio.android.sdk.b.l;
-import com.growingio.android.sdk.circle.ct;
+import com.growingio.android.sdk.circle.bd;
 import com.growingio.android.sdk.collection.GConfig;
 import com.growingio.android.sdk.utils.LogUtil;
 import com.growingio.android.sdk.utils.a;
-import com.growingio.android.sdk.utils.o;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import com.growingio.android.sdk.utils.n;
 import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -108,14 +104,14 @@ public class i {
 
     public void a() {
         if (this.a.a(this)) {
-            this.b = com.growingio.android.sdk.utils.i.a(this.c.getClass());
+            this.b = com.growingio.android.sdk.utils.j.a(this.c.getClass());
             this.g();
             this.h();
             this.f();
             if (this.i()) {
                 this.a.b(this);
             }
-            if (a.c((Object)this.c)) {
+            if (a.d((Object)this.c)) {
                 return;
             }
             this.b();
@@ -127,11 +123,8 @@ public class i {
             ViewGroup viewGroup = (ViewGroup)this.c;
             for (int i2 = 0; i2 < viewGroup.getChildCount(); ++i2) {
                 View view = viewGroup.getChildAt(i2);
-                i i3 = new i(view, i2, this.e, this.m || com.growingio.android.sdk.utils.i.a(this.c), this.f, this.n || com.growingio.android.sdk.utils.i.d(this.c), this.o, this.i, this.j, this.r, this.a);
-                if (com.growingio.android.sdk.utils.i.d(this.c)) {
-                    this.s = this.j;
-                }
-                i3.a(this.s);
+                i i3 = new i(view, i2, this.e, this.m || com.growingio.android.sdk.utils.j.a(this.c), this.f, this.n || com.growingio.android.sdk.utils.j.c(this.c), this.o, this.i, this.j, this.r, this.a);
+                i3.s = com.growingio.android.sdk.utils.j.c(this.c) ? this.j : this.s;
                 i3.h = this.h;
                 i3.l = this.l;
                 i3.a();
@@ -159,38 +152,28 @@ public class i {
     }
 
     public boolean d() {
-        return this.j() && !com.growingio.android.sdk.utils.i.b(this.c);
+        return this.j() && !com.growingio.android.sdk.utils.j.b(this.c);
     }
 
     private void f() {
         if (this.c.getTag(84159243) != null) {
             this.l = (String)this.c.getTag(84159243);
         }
-        this.k = com.growingio.android.sdk.utils.i.a(this.c, this.h);
+        this.k = com.growingio.android.sdk.utils.j.a(this.c, this.h);
     }
 
     private void g() {
         int n2 = this.u;
         if (this.c.getParent() != null && this.c.getParent() instanceof ViewGroup) {
+            int n3;
             ViewGroup viewGroup = (ViewGroup)this.c.getParent();
-            if (a.a((Object)viewGroup)) {
+            if (a.b((Object)viewGroup)) {
                 n2 = ((ViewPager)viewGroup).getCurrentItem();
             } else if (viewGroup instanceof AdapterView) {
                 AdapterView adapterView = (AdapterView)viewGroup;
                 n2 = adapterView.getFirstVisiblePosition() + this.u;
-            } else if (a.a && viewGroup instanceof RecyclerView) {
-                RecyclerView recyclerView = (RecyclerView)viewGroup;
-                n2 = a.b ? recyclerView.getChildAdapterPosition(this.c) : recyclerView.getChildPosition(this.c);
-            } else if (a.d && viewGroup.getClass().equals(a.k)) {
-                try {
-                    n2 = (Integer)a.l.invoke((Object)viewGroup, new Object[]{this.c});
-                }
-                catch (IllegalAccessException var3_5) {
-                    var3_5.printStackTrace();
-                }
-                catch (InvocationTargetException var3_6) {
-                    var3_6.printStackTrace();
-                }
+            } else if (a.a((Object)viewGroup) && (n3 = com.growingio.android.sdk.utils.k.a(this.c, viewGroup)) >= 0) {
+                n2 = n3;
             }
         }
         this.d = n2;
@@ -199,7 +182,7 @@ public class i {
     private void h() {
         Object object;
         ViewParent viewParent = this.c.getParent();
-        if (viewParent == null || o.b(this.c) && !(viewParent instanceof View)) {
+        if (viewParent == null || n.b(this.c) && !(viewParent instanceof View)) {
             return;
         }
         String string = this.i;
@@ -238,17 +221,19 @@ public class i {
                         this.j = string + "/ELVG[-]/" + this.b + "[0]";
                     }
                 }
-            } else if (com.growingio.android.sdk.utils.i.a((View)object)) {
+            } else if (com.growingio.android.sdk.utils.j.a((View)object)) {
                 Object object3 = object.getTag(84159238);
                 if (object3 != null && object3 instanceof k) {
                     k k2 = (k)object3;
                     this.d = k2.a(this.d);
-                    this.h = com.growingio.android.sdk.utils.i.a((String)((List)k2.c).get(this.d));
+                    if (k2.c instanceof List) {
+                        this.h = com.growingio.android.sdk.utils.j.a(String.valueOf(((List)k2.c).get(this.d)));
+                    }
                 }
                 this.e = this.d;
                 this.i = string + "/" + this.b + "[" + this.e + "]";
                 this.j = string + "/" + this.b + "[-]";
-            } else if (a.b((Object)viewParent)) {
+            } else if (a.c((Object)viewParent)) {
                 this.i = string + "/" + this.b + "[0]";
                 this.j = string2 + "/" + this.b + "[0]";
             } else {
@@ -259,7 +244,7 @@ public class i {
             this.i = string + "/" + this.b + "[" + this.d + "]";
             this.j = string2 + "/" + this.b + "[" + this.d + "]";
         }
-        if (GConfig.b && (object = com.growingio.android.sdk.utils.i.a(this.c, this.o)) != null) {
+        if (GConfig.USE_ID && (object = com.growingio.android.sdk.utils.j.a(this.c, this.o)) != null) {
             if (this.c.getTag(84159242) != null) {
                 this.o = true;
             }
@@ -270,7 +255,7 @@ public class i {
 
     private boolean i() {
         ViewParent viewParent = this.c.getParent();
-        if (viewParent != null && (this.c.isClickable() || this.c instanceof TextView || this.c instanceof ImageView || this.c instanceof WebView || viewParent instanceof AdapterView || this.c instanceof RadioGroup || this.c instanceof Spinner || this.c instanceof RatingBar || this.c instanceof SeekBar || a.c((Object)this.c))) {
+        if (viewParent != null && (this.c.isClickable() || this.c instanceof TextView || this.c instanceof ImageView || this.c instanceof WebView || viewParent instanceof AdapterView || this.c instanceof RadioGroup || this.c instanceof Spinner || this.c instanceof RatingBar || this.c instanceof SeekBar || a.d((Object)this.c))) {
             return true;
         }
         return false;
@@ -292,23 +277,20 @@ public class i {
         }
     }
 
-    public void a(String string) {
-        this.s = string;
-    }
-
     public JSONObject e() {
         View view = this.c;
         JSONObject jSONObject = new JSONObject();
         try {
             String string;
+            Object object;
             jSONObject.put("xpath", (Object)this.j);
             if (this.e > -1) {
                 jSONObject.put("index", (Object)String.valueOf(this.e));
             }
             Rect rect = new Rect();
             this.a(view, rect, this.f);
-            double d2 = ct.g();
-            com.growingio.android.sdk.utils.i.a(view, rect, this.f);
+            double d2 = bd.f();
+            com.growingio.android.sdk.utils.j.a(view, rect, this.f);
             if (this.p != null && !rect.intersect(this.p)) {
                 return null;
             }
@@ -316,7 +298,8 @@ public class i {
             jSONObject.put("top", (double)rect.top * d2);
             jSONObject.put("width", (double)rect.width() * d2);
             jSONObject.put("height", (double)rect.height() * d2);
-            boolean bl2 = com.growingio.android.sdk.utils.i.d(view);
+            jSONObject.put("isTrackingEditText", this.c.getTag(84159246) != null);
+            boolean bl2 = com.growingio.android.sdk.utils.j.c(view);
             jSONObject.put("isContainer", bl2 || !this.n && !TextUtils.isEmpty((CharSequence)this.k));
             String string2 = string = bl2 ? "button" : "text";
             if (this.q != null) {
@@ -325,10 +308,19 @@ public class i {
                 jSONObject.put("query", (Object)this.q.c);
             }
             jSONObject.put("nodeType", (Object)string);
-            jSONObject.put("parentXPath", (Object)(this.s == null ? "" : this.s));
+            if (!TextUtils.isEmpty((CharSequence)this.s)) {
+                jSONObject.put("parentXPath", (Object)this.s);
+            }
             if (!TextUtils.isEmpty((CharSequence)this.k)) {
                 jSONObject.put("content", (Object)this.k);
             }
+            if ((object = this.c.getTag(84159244)) != null) {
+                jSONObject.put("grContent", object);
+            }
+            jSONObject.put("grImage", this.c instanceof ImageView);
+            jSONObject.put("grBannerContent", (Object)this.h);
+            jSONObject.put("grIgnored", com.growingio.android.sdk.utils.j.b(this.c));
+            jSONObject.put("grObj", (Object)this.l);
         }
         catch (JSONException var3_4) {
             LogUtil.d("GIO.ViewNode", "generate impress view error", (Throwable)var3_4);

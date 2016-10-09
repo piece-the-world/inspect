@@ -3,20 +3,23 @@
  */
 package com.growingio.android.sdk.circle;
 
-import com.growingio.android.sdk.circle.ag;
-import com.growingio.android.sdk.collection.q;
+import com.growingio.android.sdk.b.g;
+import com.growingio.android.sdk.b.i;
+import com.growingio.android.sdk.circle.k;
 
 class ah
 implements Runnable {
-    final /* synthetic */ ag a;
+    final /* synthetic */ i a;
+    final /* synthetic */ k b;
 
-    ah(ag ag2) {
-        this.a = ag2;
+    ah(k k2, i i2) {
+        this.b = k2;
+        this.a = i2;
     }
 
     @Override
     public void run() {
-        q.d().a(true);
+        this.b.a("click", this.a, null);
     }
 }
 

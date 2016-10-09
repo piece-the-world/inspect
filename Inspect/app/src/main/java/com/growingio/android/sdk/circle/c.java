@@ -18,7 +18,7 @@ implements View.OnClickListener {
         this.a = a2;
     }
 
-    public void onClick(View view) {
+    public void onClick(View v2) {
         a.c(this.a);
     }
 }

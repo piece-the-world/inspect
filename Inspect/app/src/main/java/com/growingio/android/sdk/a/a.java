@@ -2,79 +2,45 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.annotation.TargetApi
- *  android.os.Handler
- *  android.util.Log
+ *  android.os.AsyncTask
+ *  android.os.Build
+ *  android.os.Build$VERSION
  *  android.util.Pair
- *  org.json.JSONObject
  */
 package com.growingio.android.sdk.a;
 
-import android.annotation.TargetApi;
-import android.os.Handler;
-import android.util.Log;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Pair;
-import com.growingio.android.sdk.a.b;
-import com.growingio.android.sdk.a.c;
 import com.growingio.android.sdk.collection.GConfig;
+import com.growingio.android.sdk.collection.c;
 import com.growingio.android.sdk.utils.e;
-import java.util.HashMap;
-import java.util.Map;
-import org.json.JSONObject;
+import java.net.URLEncoder;
 
-@TargetApi(value=11)
-class a {
-    e a = new e();
-    private static final Object b = new Object();
-    private static a c;
-
-    private a() {
-    }
-
-    /*
-     * WARNING - Removed try catching itself - possible behaviour change.
-     */
-    public static a a() {
-        Object object = b;
-        synchronized (object) {
-            if (c == null) {
-                c = new a();
+public class a
+extends AsyncTask {
+    protected /* varargs */ Void a(Void ... arrvoid) {
+        try {
+            c c2 = c.k();
+            String string = "https://t.growingio.com/app/" + c2.c() + "/android/devices?u=" + c2.l() + "&dm=" + URLEncoder.encode(new StringBuilder().append(Build.BRAND).append(" ").append(Build.MODEL).toString(), "UTF-8") + "&osv=" + URLEncoder.encode(new StringBuilder().append("Android ").append(Build.VERSION.RELEASE).toString(), "UTF-8") + "&d=" + c2.b();
+            int n2 = 0;
+            while (n2++ < 3) {
+                com.growingio.android.sdk.utils.c c3 = new e().a(string).a();
+                if ((Integer)c3.b().first == 200) {
+                    GConfig.q().C();
+                    return null;
+                }
+                Thread.sleep(5000);
             }
-            return c;
         }
-    }
-
-    static com.growingio.android.sdk.collection.c b() {
-        return com.growingio.android.sdk.collection.c.h();
-    }
-
-    static c c() {
-        return c.a();
-    }
-
-    Pair a(String string, String string2, byte[] arrby) {
-        HashMap<String, String> hashMap = new HashMap<String, String>();
-        hashMap.put("Content-Type", "application/json");
-        hashMap.put("Accept", "application/json");
-        hashMap.put("token", a.c().d());
-        hashMap.put("accountId", com.growingio.android.sdk.collection.c.h().d());
-        com.growingio.android.sdk.utils.c c2 = this.a.a(string).b(string2).a(hashMap).a(arrby).a();
-        Pair pair = c2.b();
-        if ((Integer)pair.first == 403 || (Integer)pair.first == 404) {
-            a.b().c().post((Runnable)new b(this));
+        catch (Exception var2_3) {
+            var2_3.printStackTrace();
         }
-        if (GConfig.a) {
-            Log.w((String)"HttpUtil", (String)(string2 + " " + string + " response " + pair.first + " content:" + new String((byte[])pair.second)));
-        }
-        return pair;
+        return null;
     }
 
-    Pair a(String string) {
-        return this.a(string, "GET", null);
-    }
-
-    Pair a(String string, JSONObject jSONObject) {
-        return this.a(string, "POST", jSONObject.toString().getBytes());
+    protected /* synthetic */ Object doInBackground(Object[] arrobject) {
+        return this.a((Void[])arrobject);
     }
 }
 

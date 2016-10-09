@@ -2,33 +2,46 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.util.Log
- *  android.util.Pair
- *  org.json.JSONArray
- *  org.json.JSONException
+ *  android.os.AsyncTask
  */
 package com.growingio.android.sdk.a;
 
-import android.util.Log;
-import android.util.Pair;
-import com.growingio.android.sdk.a.a;
-import com.growingio.android.sdk.b.o;
-import org.json.JSONArray;
-import org.json.JSONException;
+import android.os.AsyncTask;
+import com.growingio.android.sdk.a.f;
+import com.growingio.android.sdk.a.g;
+import java.util.Collection;
+import java.util.List;
 
-public class h {
-    public JSONArray a(o o2) {
-        byte[] arrby = (byte[])a.a().a((String)"https://www.growingio.com/mobile/xrank", (String)"POST", (byte[])o2.toString().getBytes()).second;
-        JSONArray jSONArray = null;
-        if (arrby.length >= 0) {
-            try {
-                jSONArray = new JSONArray(new String(arrby));
-            }
-            catch (JSONException var4_4) {
-                Log.d((String)"GIO.XPathRankAPI", (String)"parse rank data error");
-            }
+class h
+extends AsyncTask {
+    final /* synthetic */ g a;
+
+    h(g g2) {
+        this.a = g2;
+    }
+
+    protected /* varargs */ List a(Void ... arrvoid) {
+        return new f().b();
+    }
+
+    protected void a(List list) {
+        super.onPostExecute((Object)list);
+        g.a(this.a).clear();
+        g.a(this.a).addAll(list);
+        g.a(this.a, true);
+        g.b(this.a, false);
+        if (g.b(this.a) != null) {
+            g.b(this.a).a();
+            g.a(this.a, null);
         }
-        return jSONArray;
+    }
+
+    protected /* synthetic */ void onPostExecute(Object object) {
+        this.a((List)object);
+    }
+
+    protected /* synthetic */ Object doInBackground(Object[] arrobject) {
+        return this.a((Void[])arrobject);
     }
 }
 

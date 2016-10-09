@@ -2,25 +2,24 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.app.Activity
- *  android.content.Context
+ *  android.graphics.Rect
+ *  android.text.TextUtils
  *  android.view.View
- *  android.widget.Toast
  */
 package com.growingio.android.sdk.circle;
 
-import android.app.Activity;
-import android.content.Context;
+import android.graphics.Rect;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
+import com.growingio.android.sdk.b.d;
 import com.growingio.android.sdk.b.i;
 import com.growingio.android.sdk.b.l;
 import com.growingio.android.sdk.circle.a;
-import com.growingio.android.sdk.circle.j;
-import com.growingio.android.sdk.utils.m;
+import com.growingio.android.sdk.circle.bd;
+import com.growingio.android.sdk.utils.j;
 
 class g
-implements Runnable {
+extends l {
     final /* synthetic */ a a;
 
     g(a a2) {
@@ -28,15 +27,21 @@ implements Runnable {
     }
 
     @Override
-    public void run() {
-        Activity activity = j.e().d();
-        if (a.i(this.a) != null && activity != null) {
-            i i2 = new i(null, a.i((a)this.a).d, -2, true, true, true, a.i((a)this.a).o, a.i((a)this.a).i, a.i((a)this.a).j, a.i((a)this.a).r, null);
-            a.b(this.a).a(i2);
-            a.a(this.a).setVisibility(8);
-            a.b(this.a, true);
-            boolean bl2 = m.b(a.i((a)this.a).c);
-            Toast.makeText((Context)activity, (CharSequence)("\u5df2\u9009\u4e2d\u6574" + (bl2 ? "\u5217" : "\u884c")), (int)0).show();
+    public void b(i i2) {
+        boolean bl2 = j.c(i2.c);
+        if (!bl2 && (i2.n || TextUtils.isEmpty((CharSequence)i2.k))) {
+            return;
+        }
+        j.a(i2.c, a.d(this.a), i2.f);
+        if (a.a(this.a, a.h(this.a), a.d(this.a))) {
+            double d2 = bd.f();
+            d d3 = new d();
+            d3.a = String.valueOf((int)((double)a.d((a)this.a).left * d2));
+            d3.b = String.valueOf((int)((double)a.d((a)this.a).top * d2));
+            d3.c = String.valueOf((int)((double)a.d(this.a).width() * d2));
+            d3.d = String.valueOf((int)((double)a.d(this.a).height() * d2));
+            i2.g = d3;
+            a.g(this.a).add(0, i2);
         }
     }
 }

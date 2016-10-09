@@ -22,40 +22,40 @@ extends OutputStream {
     private boolean h;
 
     @Override
-    public void write(int n2) {
+    public void write(int b2) {
         if (this.h) {
             throw new IOException("Stream is closed");
         }
         if (this.g >= this.b) {
             this.a();
         }
-        this.c[this.g++] = (byte)n2;
+        this.c[this.g++] = (byte)b2;
     }
 
     @Override
-    public void write(byte[] arrby, int n2, int n3) {
-        h.a((Object)arrby, "input is null", new Object[0]);
-        h.a(n2, n2 + n3, arrby.length);
+    public void write(byte[] input, int offset, int length) {
+        h.a((Object)input, "input is null", new Object[0]);
+        h.a(offset, offset + length, input.length);
         if (this.h) {
             throw new IOException("Stream is closed");
         }
-        int n4 = this.b - this.g;
-        if (n4 >= n3) {
-            this.b(arrby, n2, n3);
+        int n2 = this.b - this.g;
+        if (n2 >= length) {
+            this.b(input, offset, length);
             return;
         }
         if (this.g > 0) {
-            this.b(arrby, n2, n4);
+            this.b(input, offset, n2);
             this.a();
-            n2 += n4;
-            n3 -= n4;
+            offset += n2;
+            length -= n2;
         }
-        while (n3 >= this.b) {
-            this.c(arrby, n2, this.b);
-            n2 += this.b;
-            n3 -= this.b;
+        while (length >= this.b) {
+            this.c(input, offset, this.b);
+            offset += this.b;
+            length -= this.b;
         }
-        this.b(arrby, n2, n3);
+        this.b(input, offset, length);
     }
 
     @Override

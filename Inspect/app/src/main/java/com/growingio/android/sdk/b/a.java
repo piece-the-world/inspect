@@ -41,7 +41,13 @@ extends g {
         return a2;
     }
 
-    public a d() {
+    public static a d() {
+        a a2 = new a("chng");
+        a2.e = true;
+        return a2;
+    }
+
+    public a e() {
         a a2 = new a(this.d);
         a2.b = this.b;
         a2.e = this.e;
@@ -50,7 +56,7 @@ extends g {
         return a2;
     }
 
-    public boolean e() {
+    public boolean f() {
         return this.e;
     }
 
@@ -58,7 +64,7 @@ extends g {
     public JSONObject b() {
         JSONObject jSONObject = null;
         if (this.a.size() > 0) {
-            jSONObject = this.i();
+            jSONObject = this.j();
             try {
                 JSONArray jSONArray = new JSONArray();
                 for (b b2 : this.a) {
@@ -66,6 +72,10 @@ extends g {
                 }
                 jSONObject.put("t", (Object)this.d);
                 jSONObject.put("ptm", this.b);
+                if ("clck".equals(this.d)) {
+                    this.a(jSONObject);
+                    this.b(jSONObject);
+                }
                 jSONObject.put("e", (Object)jSONArray);
             }
             catch (JSONException var2_3) {
@@ -76,7 +86,7 @@ extends g {
     }
 
     @Override
-    public int f() {
+    public int g() {
         return this.a.size();
     }
 

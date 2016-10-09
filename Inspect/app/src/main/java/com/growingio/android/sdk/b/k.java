@@ -15,9 +15,8 @@ public class k {
     public Object c;
 
     public int a(int n2) {
-        if (this.a == 2) {
-            List list = (List)this.c;
-            return n2 % list.size();
+        if (this.a == 2 && this.c instanceof List) {
+            return n2 % ((List)this.c).size();
         }
         return n2;
     }

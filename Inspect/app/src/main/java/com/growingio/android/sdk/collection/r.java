@@ -2,26 +2,23 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.view.ViewTreeObserver
- *  android.view.ViewTreeObserver$OnGlobalLayoutListener
+ *  android.view.View
  */
 package com.growingio.android.sdk.collection;
 
-import android.view.ViewTreeObserver;
-import com.growingio.android.sdk.circle.j;
-import com.growingio.android.sdk.collection.q;
+import android.view.View;
 
-class r
-implements ViewTreeObserver.OnGlobalLayoutListener {
-    final /* synthetic */ q a;
+final class r
+implements Runnable {
+    final /* synthetic */ View a;
 
-    r(q q2) {
-        this.a = q2;
+    r(View view) {
+        this.a = view;
     }
 
-    public void onGlobalLayout() {
-        q.a(this.a);
-        j.e().f();
+    @Override
+    public void run() {
+        this.a.setPressed(false);
     }
 }
 

@@ -3,20 +3,20 @@
  */
 package com.growingio.android.sdk.circle;
 
-import com.growingio.android.sdk.circle.j;
-import com.growingio.android.sdk.circle.w;
+import com.growingio.android.sdk.circle.k;
+import com.growingio.android.sdk.collection.t;
 
 class x
 implements Runnable {
-    final /* synthetic */ w a;
+    final /* synthetic */ k a;
 
-    x(w w2) {
-        this.a = w2;
+    x(k k2) {
+        this.a = k2;
     }
 
     @Override
     public void run() {
-        j.b(this.a.a).setContent("Web\u7aef\u5708\u9009\u4e2d");
+        t.d().a("/GioWindow/FloatViewContainer[0]/TextView[0]", null, false);
     }
 }
 

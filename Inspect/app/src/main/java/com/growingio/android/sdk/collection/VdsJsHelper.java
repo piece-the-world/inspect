@@ -55,13 +55,14 @@ import android.webkit.WebSettings;
 import android.webkit.WebStorage;
 import com.growingio.android.sdk.b.d;
 import com.growingio.android.sdk.b.i;
-import com.growingio.android.sdk.circle.ct;
-import com.growingio.android.sdk.circle.j;
+import com.growingio.android.sdk.b.j;
+import com.growingio.android.sdk.circle.bd;
+import com.growingio.android.sdk.circle.k;
 import com.growingio.android.sdk.collection.GConfig;
 import com.growingio.android.sdk.collection.VdsJsHelper$VdsBridge;
-import com.growingio.android.sdk.collection.ag;
 import com.growingio.android.sdk.collection.ak;
-import com.growingio.android.sdk.collection.al;
+import com.growingio.android.sdk.collection.ao;
+import com.growingio.android.sdk.collection.ap;
 import com.growingio.android.sdk.collection.c;
 import com.growingio.android.sdk.utils.LogUtil;
 import com.growingio.android.sdk.utils.a;
@@ -92,38 +93,38 @@ implements Runnable {
     private boolean j = false;
     private static boolean k = false;
 
-    public VdsJsHelper(View view) {
-        this.c = new WeakReference<View>(view);
-        this.a(view);
+    public VdsJsHelper(View webView) {
+        this.c = new WeakReference<View>(webView);
+        this.a(webView);
     }
 
     public boolean isReturnedData() {
         return this.j;
     }
 
-    public void update(i i2, boolean bl2) {
-        if (i2 == null) {
+    public void update(i node, boolean force) {
+        if (node == null) {
             this.h = null;
         } else {
-            this.b = c.h().o();
+            this.b = c.k().t();
             if (this.b == null) {
                 return;
             }
-            boolean bl3 = this.h == null;
-            this.h = i2.c();
-            this.c = new WeakReference<View>(i2.c);
-            if (this.i || bl3) {
+            boolean bl2 = this.h == null;
+            this.h = node.c();
+            this.c = new WeakReference<View>(node.c);
+            if (this.i || bl2) {
                 this.i = false;
-                i2.c.removeCallbacks((Runnable)this);
-                i2.c.postDelayed((Runnable)this, 1000);
-                if (GConfig.a) {
+                node.c.removeCallbacks((Runnable)this);
+                node.c.postDelayed((Runnable)this, 1000);
+                if (GConfig.DEBUG) {
                     Log.d((String)"VdsJsHelper", (String)"update: hook WebView after 1000ms");
                 }
-            } else if (this.j && bl2) {
-                if (GConfig.a) {
-                    Log.d((String)"VdsJsHelper", (String)("update: get impression from WebView " + (Object)i2.c));
+            } else if (this.j && force) {
+                if (GConfig.DEBUG) {
+                    Log.d((String)"VdsJsHelper", (String)("update: get impression from WebView " + (Object)node.c));
                 }
-                com.growingio.android.sdk.utils.i.a(i2.c, "_vds_hybrid.impressAllElements", true);
+                com.growingio.android.sdk.utils.j.a(node.c, "_vds_hybrid.impressAllElements", true);
             }
         }
         this.a();
@@ -135,15 +136,15 @@ implements Runnable {
         if (view != null) {
             if (this.h != null) {
                 try {
-                    boolean bl2 = j.e().b();
-                    String string = ag.a().b();
+                    boolean bl2 = k.e().b();
+                    String string = ak.a().b();
                     if (view instanceof android.webkit.WebView) {
                         android.webkit.WebView webView = (android.webkit.WebView)view;
                         webView.loadUrl(this.a(webView.getContext()));
                         if (bl2 && string != null) {
                             webView.loadUrl(string);
                         }
-                    } else if (a.c((Object)view)) {
+                    } else if (a.d((Object)view)) {
                         WebView webView = (WebView)view;
                         webView.loadUrl(this.a(webView.getContext()));
                         if (bl2 && string != null) {
@@ -202,15 +203,15 @@ implements Runnable {
 
     @TargetApi(value=11)
     private void b(Context context) {
-        new ak(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Object[])new String[]{this.c(context)});
+        new ao(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Object[])new String[]{this.c(context)});
     }
 
     private String c(Context context) {
         return context.getFilesDir() + "/" + "vds_hybrid.min.js";
     }
 
-    public void setClient(WebChromeClient webChromeClient) {
-        this.e = webChromeClient;
+    public void setClient(WebChromeClient client) {
+        this.e = client;
     }
 
     private List a(JSONObject jSONObject) {
@@ -221,7 +222,7 @@ implements Runnable {
         String string = jSONObject.getString("d");
         String string2 = jSONObject.getString("p");
         String string3 = jSONObject.optString("q", null);
-        double d2 = ct.g();
+        double d2 = bd.f();
         int[] arrn = new int[2];
         view.getLocationOnScreen(arrn);
         Rect rect = new Rect();
@@ -229,7 +230,7 @@ implements Runnable {
         for (int i2 = 0; i2 < n2; ++i2) {
             JSONObject jSONObject2 = jSONArray.getJSONObject(i2);
             i i3 = this.h.c();
-            com.growingio.android.sdk.b.j j2 = new com.growingio.android.sdk.b.j();
+            j j2 = new j();
             j2.a = string;
             j2.b = string2;
             j2.c = string3;
@@ -265,42 +266,50 @@ implements Runnable {
 
     @SuppressLint(value={"SetJavaScriptEnabled", "AddJavascriptInterface"})
     private void a(View view) {
-        this.a();
-        if (view instanceof android.webkit.WebView) {
-            android.webkit.WebView webView = (android.webkit.WebView)view;
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.addJavascriptInterface((Object)new VdsJsHelper$VdsBridge(this, null), "_vds_bridge");
-        } else if (a.c((Object)view)) {
-            WebView webView = (WebView)view;
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.addJavascriptInterface((Object)new VdsJsHelper$VdsBridge(this, null), "_vds_bridge");
+        if (this.a()) {
+            if (view instanceof android.webkit.WebView) {
+                android.webkit.WebView webView = (android.webkit.WebView)view;
+                webView.getSettings().setJavaScriptEnabled(true);
+                webView.addJavascriptInterface((Object)new VdsJsHelper$VdsBridge(this, null), "_vds_bridge");
+            } else if (a.d((Object)view)) {
+                WebView webView = (WebView)view;
+                webView.getSettings().setJavaScriptEnabled(true);
+                webView.addJavascriptInterface((Object)new VdsJsHelper$VdsBridge(this, null), "_vds_bridge");
+            }
         }
     }
 
-    private void a() {
+    private boolean a() {
         View view = (View)this.c.get();
         if (view != null) {
             Object object;
             boolean bl2 = true;
             if (view instanceof android.webkit.WebView) {
                 object = (android.webkit.WebView)view;
-                object.setWebChromeClient((WebChromeClient)this);
-            } else if (a.c((Object)view)) {
+                try {
+                    object.setWebChromeClient((WebChromeClient)this);
+                }
+                catch (Throwable var4_4) {
+                    var4_4.printStackTrace();
+                    return false;
+                }
+            }
+            if (a.d((Object)view)) {
                 bl2 = false;
                 object = (WebView)view;
                 this.g = this.b();
                 try {
                     object.setWebChromeClient((com.tencent.smtt.sdk.WebChromeClient)this.g);
                 }
-                catch (Exception var4_4) {
-                    var4_4.printStackTrace();
+                catch (Exception var4_5) {
+                    var4_5.printStackTrace();
+                    return false;
                 }
             }
-            object = view.getTag(84159239);
-            if (object != null) {
+            if ((object = view.getTag(84159239)) != null) {
                 if (object instanceof WebChromeClient) {
                     this.e = (WebChromeClient)object;
-                } else if (a.d(object)) {
+                } else if (a.e(object)) {
                     this.f = object;
                 }
             }
@@ -310,26 +319,27 @@ implements Runnable {
                 this.f = this.f != null ? this.f : new Object();
             }
         }
+        return true;
     }
 
-    public void onProgressChanged(android.webkit.WebView webView, int n2) {
+    public void onProgressChanged(android.webkit.WebView view, int newProgress) {
         String string;
-        webView.removeCallbacks((Runnable)this);
-        if (n2 >= 60 && (string = webView.getUrl()) != null) {
-            webView.postDelayed((Runnable)this, 1000);
+        view.removeCallbacks((Runnable)this);
+        if (newProgress >= 60 && (string = view.getUrl()) != null) {
+            view.postDelayed((Runnable)this, 1000);
         }
-        this.e.onProgressChanged(webView, n2);
+        this.e.onProgressChanged(view, newProgress);
     }
 
     private com.tencent.smtt.sdk.WebChromeClient b() {
         if (this.g == null) {
-            this.g = new al(this);
+            this.g = new ap(this);
         }
         return (com.tencent.smtt.sdk.WebChromeClient)this.g;
     }
 
-    public boolean onJsAlert(android.webkit.WebView webView, String string, String string2, JsResult jsResult) {
-        return this.e.onJsAlert(webView, string, string2, jsResult);
+    public boolean onJsAlert(android.webkit.WebView view, String url, String message, JsResult result) {
+        return this.e.onJsAlert(view, url, message, result);
     }
 
     public boolean onJsTimeout() {
@@ -341,99 +351,99 @@ implements Runnable {
         return this.e.onConsoleMessage(consoleMessage);
     }
 
-    public boolean onCreateWindow(android.webkit.WebView webView, boolean bl2, boolean bl3, Message message) {
-        return this.e.onCreateWindow(webView, bl2, bl3, message);
+    public boolean onCreateWindow(android.webkit.WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
+        return this.e.onCreateWindow(view, isDialog, isUserGesture, resultMsg);
     }
 
-    public boolean onJsBeforeUnload(android.webkit.WebView webView, String string, String string2, JsResult jsResult) {
-        return this.e.onJsBeforeUnload(webView, string, string2, jsResult);
+    public boolean onJsBeforeUnload(android.webkit.WebView view, String url, String message, JsResult result) {
+        return this.e.onJsBeforeUnload(view, url, message, result);
     }
 
-    public boolean onJsConfirm(android.webkit.WebView webView, String string, String string2, JsResult jsResult) {
-        return this.e.onJsConfirm(webView, string, string2, jsResult);
+    public boolean onJsConfirm(android.webkit.WebView view, String url, String message, JsResult result) {
+        return this.e.onJsConfirm(view, url, message, result);
     }
 
-    public boolean onJsPrompt(android.webkit.WebView webView, String string, String string2, String string3, JsPromptResult jsPromptResult) {
-        return this.e.onJsPrompt(webView, string, string2, string3, jsPromptResult);
+    public boolean onJsPrompt(android.webkit.WebView view, String url, String message, String defaultValue, JsPromptResult result) {
+        return this.e.onJsPrompt(view, url, message, defaultValue, result);
     }
 
-    public void onCloseWindow(android.webkit.WebView webView) {
-        this.e.onCloseWindow(webView);
+    public void onCloseWindow(android.webkit.WebView window) {
+        this.e.onCloseWindow(window);
     }
 
     public void onGeolocationPermissionsHidePrompt() {
         this.e.onGeolocationPermissionsHidePrompt();
     }
 
-    public void onGeolocationPermissionsShowPrompt(String string, GeolocationPermissions.Callback callback) {
-        this.e.onGeolocationPermissionsShowPrompt(string, callback);
+    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+        this.e.onGeolocationPermissionsShowPrompt(origin, callback);
     }
 
     public void onHideCustomView() {
         this.e.onHideCustomView();
     }
 
-    public void onReceivedIcon(android.webkit.WebView webView, Bitmap bitmap) {
-        this.e.onReceivedIcon(webView, bitmap);
+    public void onReceivedIcon(android.webkit.WebView view, Bitmap icon) {
+        this.e.onReceivedIcon(view, icon);
     }
 
-    public void onReceivedTitle(android.webkit.WebView webView, String string) {
-        this.e.onReceivedTitle(webView, string);
+    public void onReceivedTitle(android.webkit.WebView view, String title) {
+        this.e.onReceivedTitle(view, title);
     }
 
-    public void onReceivedTouchIconUrl(android.webkit.WebView webView, String string, boolean bl2) {
-        this.e.onReceivedTouchIconUrl(webView, string, bl2);
+    public void onReceivedTouchIconUrl(android.webkit.WebView view, String url, boolean precomposed) {
+        this.e.onReceivedTouchIconUrl(view, url, precomposed);
     }
 
-    public void onRequestFocus(android.webkit.WebView webView) {
-        this.e.onRequestFocus(webView);
+    public void onRequestFocus(android.webkit.WebView view) {
+        this.e.onRequestFocus(view);
     }
 
-    public void onShowCustomView(View view, WebChromeClient.CustomViewCallback customViewCallback) {
-        this.e.onShowCustomView(view, customViewCallback);
+    public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
+        this.e.onShowCustomView(view, callback);
     }
 
     @TargetApi(value=14)
-    public void onShowCustomView(View view, int n2, WebChromeClient.CustomViewCallback customViewCallback) {
-        this.e.onShowCustomView(view, n2, customViewCallback);
+    public void onShowCustomView(View view, int requestedOrientation, WebChromeClient.CustomViewCallback callback) {
+        this.e.onShowCustomView(view, requestedOrientation, callback);
     }
 
-    public void onConsoleMessage(String string, int n2, String string2) {
-        this.e.onConsoleMessage(string, n2, string2);
+    public void onConsoleMessage(String message, int lineNumber, String sourceID) {
+        this.e.onConsoleMessage(message, lineNumber, sourceID);
     }
 
-    public void onExceededDatabaseQuota(String string, String string2, long l2, long l3, long l4, WebStorage.QuotaUpdater quotaUpdater) {
-        this.e.onExceededDatabaseQuota(string, string2, l2, l3, l4, quotaUpdater);
+    public void onExceededDatabaseQuota(String url, String databaseIdentifier, long quota, long estimatedDatabaseSize, long totalQuota, WebStorage.QuotaUpdater quotaUpdater) {
+        this.e.onExceededDatabaseQuota(url, databaseIdentifier, quota, estimatedDatabaseSize, totalQuota, quotaUpdater);
     }
 
-    public void onReachedMaxAppCacheSize(long l2, long l3, WebStorage.QuotaUpdater quotaUpdater) {
-        this.e.onReachedMaxAppCacheSize(l2, l3, quotaUpdater);
+    public void onReachedMaxAppCacheSize(long requiredStorage, long quota, WebStorage.QuotaUpdater quotaUpdater) {
+        this.e.onReachedMaxAppCacheSize(requiredStorage, quota, quotaUpdater);
     }
 
-    public void openFileChooser(ValueCallback valueCallback, String string, String string2) {
+    public void openFileChooser(ValueCallback uploadMsg, String acceptType, String capture) {
         try {
             Method method = this.e.getClass().getDeclaredMethod("openFileChooser", ValueCallback.class, String.class, String.class);
-            method.invoke((Object)this.e, new Object[]{valueCallback, string, string2});
+            method.invoke((Object)this.e, new Object[]{uploadMsg, acceptType, capture});
         }
         catch (Exception var4_5) {
             var4_5.printStackTrace();
         }
     }
 
-    public void openFileChooser(ValueCallback valueCallback, String string) {
+    public void openFileChooser(ValueCallback uploadMsg, String acceptType) {
         try {
             Method method = this.e.getClass().getDeclaredMethod("openFileChooser", ValueCallback.class, String.class);
-            method.invoke((Object)this.e, new Object[]{valueCallback, string});
+            method.invoke((Object)this.e, new Object[]{uploadMsg, acceptType});
         }
         catch (Exception var3_4) {
             var3_4.printStackTrace();
         }
     }
 
-    public void openFileChooser(ValueCallback valueCallback) {
+    public void openFileChooser(ValueCallback uploadMsg) {
         try {
             Method method = this.e.getClass().getDeclaredMethod("openFileChooser", ValueCallback.class);
-            method.invoke((Object)this.e, new Object[]{valueCallback});
+            method.invoke((Object)this.e, new Object[]{uploadMsg});
         }
         catch (Exception var2_3) {
             var2_3.printStackTrace();
@@ -441,18 +451,18 @@ implements Runnable {
     }
 
     @TargetApi(value=21)
-    public boolean onShowFileChooser(android.webkit.WebView webView, ValueCallback valueCallback, WebChromeClient.FileChooserParams fileChooserParams) {
-        return this.e.onShowFileChooser(webView, valueCallback, fileChooserParams);
+    public boolean onShowFileChooser(android.webkit.WebView webView, ValueCallback filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
+        return this.e.onShowFileChooser(webView, filePathCallback, fileChooserParams);
     }
 
     @TargetApi(value=21)
-    public void onPermissionRequest(PermissionRequest permissionRequest) {
-        this.e.onPermissionRequest(permissionRequest);
+    public void onPermissionRequest(PermissionRequest request) {
+        this.e.onPermissionRequest(request);
     }
 
     @TargetApi(value=21)
-    public void onPermissionRequestCanceled(PermissionRequest permissionRequest) {
-        this.e.onPermissionRequestCanceled(permissionRequest);
+    public void onPermissionRequestCanceled(PermissionRequest request) {
+        this.e.onPermissionRequestCanceled(request);
     }
 
     static /* synthetic */ i a(VdsJsHelper vdsJsHelper) {

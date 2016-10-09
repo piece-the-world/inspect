@@ -12,6 +12,8 @@
  *  android.content.pm.PackageManager$NameNotFoundException
  *  android.graphics.Point
  *  android.os.Bundle
+ *  android.os.Environment
+ *  android.support.annotation.WorkerThread
  *  android.text.TextUtils
  *  org.json.JSONArray
  *  org.json.JSONException
@@ -27,12 +29,17 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.annotation.WorkerThread;
 import android.text.TextUtils;
 import com.growingio.android.sdk.b.h;
-import com.growingio.android.sdk.circle.j;
+import com.growingio.android.sdk.circle.k;
 import com.growingio.android.sdk.collection.Configuration;
-import com.growingio.android.sdk.collection.m;
-import com.growingio.android.sdk.utils.i;
+import com.growingio.android.sdk.collection.n;
+import com.growingio.android.sdk.utils.LogUtil;
+import com.growingio.android.sdk.utils.g;
+import com.growingio.android.sdk.utils.j;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,154 +50,173 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GConfig {
-    public static boolean a = false;
-    public static boolean b;
-    public static boolean c;
-    private SimpleDateFormat f = new SimpleDateFormat("yyyy_MM_dd", Locale.US);
-    private static GConfig g;
-    private static final Object h;
-    private Context i;
-    private int j;
-    private long k;
-    private boolean l;
-    private boolean m;
-    private long n;
-    private String o;
-    private boolean p;
-    private boolean q = a;
-    public static String d;
-    public static String e;
-    private boolean r = false;
-    private boolean s;
-    private int t;
-    private boolean u = true;
-    private double v = -1.0;
-    private boolean w = true;
+    public static boolean DEBUG = false;
+    public static final String GROWING_VERSION = "0.9.98_355b84e";
+    public static boolean USE_ID;
+    public static boolean CIRCLE_USE_ID;
+    public static final String AGENT_VERSION = "0.9.98";
+    private SimpleDateFormat a = new SimpleDateFormat("yyyy_MM_dd", Locale.US);
+    private static GConfig b;
+    private static final Object c;
+    private Context d;
+    private int e;
+    private long f;
+    private boolean g;
+    private boolean h;
+    private long i;
+    private String j;
+    private boolean k;
+    private boolean l = DEBUG;
+    public static String sGrowingScheme;
+    public static String sAppVersion;
+    private boolean m = false;
+    private boolean n;
+    private long o;
+    private int p;
+    private boolean q = true;
+    private double r = -1.0;
+    private boolean s = true;
+    private boolean t = false;
+    private boolean u = false;
+    private final boolean v;
+    private long w = 0;
     private boolean x = false;
-    private final boolean y;
-    private long z = 0;
-    private boolean A = false;
-    private HashMap B;
+    private HashMap y;
 
     public static boolean isInstrumented() {
         return false;
     }
 
     public boolean a() {
-        return this.u;
-    }
-
-    public double b() {
-        return this.v;
-    }
-
-    public boolean c() {
-        return this.w;
-    }
-
-    public boolean d() {
-        return this.s;
-    }
-
-    public void e() {
-        if (this.C().contains("pref_enable_imp")) {
-            return;
-        }
-        this.w = false;
-    }
-
-    public HashMap f() {
-        return this.B;
-    }
-
-    public void a(String string) {
-        this.o = string;
-    }
-
-    public boolean g() {
         return this.q;
     }
 
-    boolean h() {
-        return this.l || j.e().a();
+    public double b() {
+        return this.r;
     }
 
-    public boolean i() {
-        return this.m;
+    public boolean c() {
+        return this.s;
     }
 
-    int j() {
-        return this.j;
-    }
-
-    long k() {
-        return this.k;
-    }
-
-    public String l() {
-        return this.o;
-    }
-
-    public boolean m() {
-        return this.y;
-    }
-
-    long n() {
+    public boolean d() {
         return this.n;
     }
 
-    private GConfig(Configuration configuration) {
-        this.i = configuration.a.getApplicationContext();
-        a = configuration.k;
-        this.k = configuration.r;
-        this.j = configuration.p;
-        this.n = configuration.q;
-        this.l = configuration.l;
-        this.q = configuration.m;
-        this.o = configuration.e;
-        this.s = configuration.o;
-        this.y = configuration.j;
-        c = GConfig.b = configuration.n;
-        d = configuration.c;
-        if (this.q) {
-            m.a(this.i);
+    public void e() {
+        if (this.E().contains("pref_enable_imp")) {
+            return;
         }
-        this.B();
-        this.G();
+        this.s = false;
+    }
+
+    public void f() {
+        if (this.E().contains("pref_enable_imp")) {
+            return;
+        }
+        this.s = true;
+    }
+
+    public boolean g() {
+        return this.u;
+    }
+
+    public HashMap h() {
+        return this.y;
+    }
+
+    public void a(String string) {
+        this.j = string;
+    }
+
+    public boolean i() {
+        return this.l;
+    }
+
+    boolean j() {
+        return this.g || k.e().a();
+    }
+
+    public boolean k() {
+        return this.h;
+    }
+
+    int l() {
+        return this.e;
+    }
+
+    long m() {
+        return this.f;
+    }
+
+    public String n() {
+        return this.j;
+    }
+
+    public boolean o() {
+        return this.v;
+    }
+
+    long p() {
+        return this.i;
+    }
+
+    private GConfig(Configuration configuration) {
+        this.d = configuration.a.getApplicationContext();
+        DEBUG = configuration.k;
+        this.f = configuration.s;
+        this.e = configuration.q;
+        this.i = configuration.r;
+        this.u = configuration.p;
+        this.o = configuration.t;
+        this.s = !configuration.h;
+        this.g = configuration.l;
+        this.t = configuration.i;
+        this.l = configuration.m;
+        this.j = configuration.e;
+        this.n = configuration.o;
+        this.v = configuration.j;
+        CIRCLE_USE_ID = GConfig.USE_ID = configuration.n;
+        sGrowingScheme = configuration.c;
+        if (this.l) {
+            n.a(this.d);
+        }
+        this.D();
+        this.I();
     }
 
     /*
      * WARNING - Removed try catching itself - possible behaviour change.
      */
     public static void a(Configuration configuration) {
-        Object object = h;
+        Object object = c;
         synchronized (object) {
-            if (null == g) {
-                g = new GConfig(configuration);
+            if (null == b) {
+                b = new GConfig(configuration);
             }
         }
     }
 
-    public static GConfig o() {
-        return g;
+    public static GConfig q() {
+        return b;
     }
 
     @TargetApi(value=15)
-    private void B() {
-        Bundle bundle = i.a(this.i);
-        this.m = bundle.getBoolean("com.growingio.android.GConfig.LocalMode", false);
-        this.p = bundle.getBoolean("com.growingio.android.GConfig.EnableCellularTransmission", true);
-        if (TextUtils.isEmpty((CharSequence)this.o)) {
-            this.o = this.a(bundle, "com.growingio.android.GConfig.Channel");
-            if (TextUtils.isEmpty((CharSequence)this.o)) {
-                this.o = this.a(bundle);
+    private void D() {
+        Bundle bundle = j.a(this.d);
+        this.h = bundle.getBoolean("com.growingio.android.GConfig.LocalMode", false);
+        this.k = bundle.getBoolean("com.growingio.android.GConfig.EnableCellularTransmission", true);
+        if (TextUtils.isEmpty((CharSequence)this.j)) {
+            this.j = this.a(bundle, "com.growingio.android.GConfig.Channel");
+            if (TextUtils.isEmpty((CharSequence)this.j)) {
+                this.j = this.a(bundle);
             }
-            if (this.o.length() > 32) {
-                this.o = this.o.substring(0, 32);
+            if (this.j.length() > 32) {
+                this.j = this.j.substring(0, 32);
             }
         }
         try {
-            e = this.i.getPackageManager().getPackageInfo((String)this.i.getPackageName(), (int)0).versionName;
+            sAppVersion = this.d.getPackageManager().getPackageInfo((String)this.d.getPackageName(), (int)0).versionName;
         }
         catch (PackageManager.NameNotFoundException var2_2) {
             // empty catch block
@@ -219,42 +245,33 @@ public class GConfig {
         return object != null ? String.valueOf(object) : null;
     }
 
-    private SharedPreferences C() {
-        return this.i.getSharedPreferences("growing_profile", 0);
+    private SharedPreferences E() {
+        return this.d.getSharedPreferences("growing_profile", 0);
     }
 
-    private SharedPreferences D() {
-        return this.i.getSharedPreferences("growing_server_pref", 0);
+    private SharedPreferences F() {
+        return this.d.getSharedPreferences("growing_server_pref", 0);
     }
 
-    public boolean p() {
-        return this.C().getBoolean("pref_show_circle_tip", true);
+    public boolean r() {
+        return this.E().getBoolean("pref_show_circle_tip", true);
     }
 
     @TargetApi(value=9)
     public void a(boolean bl2) {
-        this.C().edit().putBoolean("pref_show_circle_tip", bl2).apply();
+        this.E().edit().putBoolean("pref_show_circle_tip", bl2).apply();
     }
 
-    public boolean q() {
-        return this.C().getBoolean("pref_show_tag_success", true);
+    public boolean s() {
+        return this.m;
     }
 
-    @TargetApi(value=9)
     public void b(boolean bl2) {
-        this.C().edit().putBoolean("pref_show_tag_success", bl2).apply();
+        this.m = bl2;
     }
 
-    public boolean r() {
-        return this.r;
-    }
-
-    public void c(boolean bl2) {
-        this.r = bl2;
-    }
-
-    public Point s() {
-        SharedPreferences sharedPreferences = this.C();
+    public Point t() {
+        SharedPreferences sharedPreferences = this.E();
         int n2 = sharedPreferences.getInt("pref_float_x", -1);
         int n3 = sharedPreferences.getInt("pref_float_y", -1);
         return new Point(n2, n3);
@@ -262,28 +279,28 @@ public class GConfig {
 
     @TargetApi(value=9)
     public void a(int n2, int n3) {
-        SharedPreferences sharedPreferences = this.C();
+        SharedPreferences sharedPreferences = this.E();
         sharedPreferences.edit().putInt("pref_float_x", n2).putInt("pref_float_y", n3).apply();
     }
 
     public void b(String string) {
-        this.C().edit().putString("pref_settings_etag", string).commit();
+        this.E().edit().putString("pref_settings_etag", string).commit();
     }
 
-    public String t() {
-        return this.C().getString("pref_settings_etag", "");
+    public String u() {
+        return this.E().getString("pref_settings_etag", "");
     }
 
     @TargetApi(value=9)
     public void c(String string) {
-        this.D().edit().putString("pref_server_settings", string).apply();
+        this.F().edit().putString("pref_server_settings", string).apply();
         this.d(string);
     }
 
-    public boolean u() {
-        if (!this.A) {
-            this.A = true;
-            String string = this.D().getString("pref_server_settings", null);
+    public boolean v() {
+        if (!this.x) {
+            this.x = true;
+            String string = this.F().getString("pref_server_settings", null);
             if (string != null) {
                 try {
                     this.a(new JSONObject(string).getJSONArray("tags"));
@@ -293,11 +310,11 @@ public class GConfig {
                 }
             }
         }
-        return this.B != null;
+        return this.y != null;
     }
 
     private void a(JSONArray jSONArray) {
-        this.B = new HashMap();
+        this.y = new HashMap();
         for (int i2 = 0; i2 < jSONArray.length(); ++i2) {
             JSONObject jSONObject = jSONArray.getJSONObject(i2);
             String string = jSONObject.optString("x");
@@ -310,10 +327,10 @@ public class GConfig {
             h2.a = string;
             h2.c = jSONObject.optString("v", null);
             h2.e = n2 != -1 ? String.valueOf(n2) : null;
-            ArrayList<h> arrayList = (ArrayList<h>)this.B.get(string2);
+            ArrayList<h> arrayList = (ArrayList<h>)this.y.get(string2);
             if (arrayList == null) {
                 arrayList = new ArrayList<h>(1);
-                this.B.put(string2, arrayList);
+                this.y.put(string2, arrayList);
             }
             arrayList.add(h2);
         }
@@ -325,22 +342,28 @@ public class GConfig {
         }
         try {
             JSONObject jSONObject = new JSONObject(string);
-            SharedPreferences.Editor editor = this.C().edit();
+            SharedPreferences.Editor editor = this.E().edit();
             if (jSONObject.has("disabled")) {
-                this.u = !jSONObject.getBoolean("disabled");
-                editor.putBoolean("pref_disable_all", !this.u);
+                this.q = !jSONObject.getBoolean("disabled");
+                editor.putBoolean("pref_disable_all", !this.q);
             }
             if (jSONObject.has("sampling")) {
-                this.v = jSONObject.getDouble("sampling");
-                editor.putFloat("pref_sampling_rate", (float)this.v);
-            }
-            if (jSONObject.has("imp")) {
-                this.w = jSONObject.getBoolean("imp");
-                editor.putBoolean("pref_enable_imp", this.w);
+                this.r = jSONObject.getDouble("sampling");
+                editor.putFloat("pref_sampling_rate", (float)this.r);
             }
             if (jSONObject.has("throttle")) {
-                this.x = jSONObject.getBoolean("throttle");
-                editor.putBoolean("pref_enable_throttle", this.x);
+                this.t = jSONObject.getBoolean("throttle");
+                editor.putBoolean("pref_enable_throttle", this.t);
+            }
+            if (jSONObject.has("imp")) {
+                this.s = jSONObject.getBoolean("imp");
+                editor.putBoolean("pref_enable_imp", this.s);
+            }
+            this.s |= this.t;
+            if (jSONObject.has("net")) {
+                boolean bl2 = jSONObject.getBoolean("net");
+                this.u = !bl2;
+                editor.putBoolean("pref_disable_cellular_impression", this.u);
             }
             editor.commit();
             this.a(jSONObject.getJSONArray("tags"));
@@ -350,15 +373,27 @@ public class GConfig {
         }
     }
 
-    public boolean v() {
-        this.F();
-        return this.p && this.t < 1048576;
+    public boolean w() {
+        this.H();
+        return this.k && (long)this.p < this.o;
     }
 
-    private boolean E() {
+    public void a(int n2) {
+        if (this.G()) {
+            this.E().edit().putInt("pref_cellular_data_size", n2).commit();
+            this.p = n2;
+        } else {
+            int n3 = this.E().getInt("pref_cellular_data_size", 0);
+            this.p = n3 + n2;
+            LogUtil.d("GIO.GConfig", "cellular data usage: ", this.p);
+            this.E().edit().putInt("pref_cellular_data_size", this.p).commit();
+        }
+    }
+
+    private boolean G() {
         String string;
-        SharedPreferences sharedPreferences = this.C();
-        String string2 = this.f.format(new Date(System.currentTimeMillis()));
+        SharedPreferences sharedPreferences = this.E();
+        String string2 = this.a.format(new Date(System.currentTimeMillis()));
         if (!TextUtils.equals((CharSequence)string2, (CharSequence)(string = sharedPreferences.getString("pref_date", "")))) {
             sharedPreferences.edit().putString("pref_date", string2).commit();
             return true;
@@ -366,89 +401,119 @@ public class GConfig {
         return false;
     }
 
-    private void F() {
-        if (this.E()) {
-            this.t = 0;
-            this.C().edit().putInt("pref_cellular_data_size", 0).commit();
+    private void H() {
+        if (this.G()) {
+            this.p = 0;
+            this.E().edit().putInt("pref_cellular_data_size", 0).commit();
         } else {
-            this.t = this.C().getInt("pref_cellular_data_size", 0);
+            this.p = this.E().getInt("pref_cellular_data_size", 0);
         }
     }
 
-    private void G() {
-        SharedPreferences sharedPreferences = this.C();
-        this.z = sharedPreferences.getLong("pref_user_install_time", 0);
-        if (this.z == 0) {
-            this.z = System.currentTimeMillis();
-            sharedPreferences.edit().putLong("pref_user_install_time", this.z).commit();
+    private void I() {
+        SharedPreferences sharedPreferences = this.E();
+        this.w = sharedPreferences.getLong("pref_user_install_time", 0);
+        if (this.w == 0) {
+            this.w = System.currentTimeMillis();
+            sharedPreferences.edit().putLong("pref_user_install_time", this.w).commit();
         }
         if (sharedPreferences.contains("pref_enable_throttle")) {
-            this.x = sharedPreferences.getBoolean("pref_enable_throttle", false);
+            this.t |= sharedPreferences.getBoolean("pref_enable_throttle", false);
         }
         if (sharedPreferences.contains("pref_enable_imp")) {
-            this.w = sharedPreferences.getBoolean("pref_enable_imp", true);
+            this.s &= sharedPreferences.getBoolean("pref_enable_imp", true);
+        }
+        this.s |= this.t;
+        if (sharedPreferences.contains("pref_disable_cellular_impression")) {
+            this.u = sharedPreferences.getBoolean("pref_disable_cellular_impression", false);
         }
         if (sharedPreferences.contains("pref_disable_all")) {
-            boolean bl2 = this.u = !sharedPreferences.getBoolean("pref_disable_all", false);
+            boolean bl2 = this.q = !sharedPreferences.getBoolean("pref_disable_all", false);
         }
         if (sharedPreferences.contains("pref_sampling_rate")) {
-            this.v = sharedPreferences.getFloat("pref_sampling_rate", 1.0f);
+            this.r = sharedPreferences.getFloat("pref_sampling_rate", 1.0f);
         }
         if (sharedPreferences.contains("pref_server_settings")) {
-            this.D().edit().putString("pref_server_settings", sharedPreferences.getString("pref_server_settings", null)).commit();
+            this.F().edit().putString("pref_server_settings", sharedPreferences.getString("pref_server_settings", null)).commit();
             sharedPreferences.edit().remove("pref_server_settings").commit();
         }
-        this.F();
+        this.H();
     }
 
-    public long w() {
-        return this.C().getLong("pref_vds_plugin_last_modified", 0);
+    public long x() {
+        return this.E().getLong("pref_vds_plugin_last_modified", 0);
     }
 
     @TargetApi(value=9)
     public void a(long l2) {
-        this.C().edit().putLong("pref_vds_plugin_last_modified", l2).apply();
+        this.E().edit().putLong("pref_vds_plugin_last_modified", l2).apply();
     }
 
-    public long x() {
-        return this.C().getLong("pref_js_src_last_modified", 1459325968000L);
+    public long y() {
+        return this.E().getLong("pref_js_src_last_modified", 1459325968000L);
     }
 
     @TargetApi(value=9)
     public void b(long l2) {
-        this.C().edit().putLong("pref_js_src_last_modified", l2).apply();
+        this.E().edit().putLong("pref_js_src_last_modified", l2).apply();
     }
 
-    public void d(boolean bl2) {
-        if (this.C().contains("pref_enable_throttle")) {
+    public void c(boolean bl2) {
+        if (this.E().contains("pref_enable_throttle")) {
             return;
         }
-        this.x = bl2;
+        this.t = bl2;
     }
 
-    public void y() {
-        if (this.C().contains("pref_disable_all")) {
+    public void z() {
+        if (this.E().contains("pref_disable_all")) {
             return;
         }
-        this.u = false;
+        this.q = false;
     }
 
-    public boolean z() {
-        return this.x;
+    public boolean A() {
+        return this.t;
     }
 
-    public long A() {
-        return this.z;
+    public boolean B() {
+        return this.E().getBoolean("pref_device_activated", false) || this.J();
     }
 
-    public void c(long l2) {
-        this.z = l2;
-        this.C().edit().putLong("pref_user_install_time", l2).commit();
+    private boolean J() {
+        if (g.c()) {
+            return this.K().exists();
+        }
+        return false;
+    }
+
+    private File K() {
+        return new File(Environment.getExternalStorageDirectory() + File.separator + ".growingio" + File.separator + this.d.getPackageName() + ".activated");
+    }
+
+    @WorkerThread
+    public void C() {
+        this.E().edit().putBoolean("pref_device_activated", true).commit();
+        if (g.c()) {
+            try {
+                File file = this.K();
+                if (file.mkdirs()) {
+                    file.createNewFile();
+                }
+            }
+            catch (Exception var1_2) {
+                var1_2.printStackTrace();
+            }
+        }
+    }
+
+    public String toString() {
+        return "DEBUG: " + DEBUG + "\n" + "Enabled: " + this.q + "\n" + "USE_ID: " + USE_ID + "\n" + "Context: " + (Object)this.d + "\n" + "Test Mode: " + this.g + "\n" + "Local Mode: " + this.h + "\n" + "Upload bulk size: " + this.e + "\n" + "Flush interval: " + this.f + "\n" + "Session interval: " + this.i + "\n" + "Channel: " + this.j + "\n" + "Track all fragments: " + this.n + "\n" + "Cellular data limit: " + this.o + "\n" + "Total cellular data size: " + this.p + "\n" + "Sampling: " + this.r + "\n" + "Enable impression: " + this.s + "\n" + "Throttle: " + this.t + "\n" + "Disable cellular impression: " + this.u + "\n" + "Instant filter initialized: " + this.x;
     }
 
     static {
-        c = GConfig.b = false;
-        h = new Object();
+        CIRCLE_USE_ID = GConfig.USE_ID = false;
+        c = new Object();
     }
 }
 

@@ -1,30 +1,22 @@
 /*
  * Decompiled with CFR 0_115.
- * 
- * Could not load the following classes:
- *  android.app.Activity
  */
 package com.growingio.android.sdk.circle;
 
-import android.app.Activity;
-import com.growingio.android.sdk.circle.aa;
-import com.growingio.android.sdk.circle.j;
-import com.growingio.android.sdk.utils.h;
+import com.growingio.android.sdk.circle.k;
+import com.growingio.android.sdk.circle.y;
 
 class z
 implements Runnable {
-    final /* synthetic */ j a;
+    final /* synthetic */ y a;
 
-    z(j j2) {
-        this.a = j2;
+    z(y y2) {
+        this.a = y2;
     }
 
     @Override
     public void run() {
-        if (this.a.d() == null || this.a.d().isFinishing()) {
-            return;
-        }
-        h.a(new aa(this));
+        k.b(this.a.a).setContent("Web\u7aef\u5708\u9009\u4e2d");
     }
 }
 

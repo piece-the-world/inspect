@@ -1,28 +1,31 @@
 /*
  * Decompiled with CFR 0_115.
+ * 
+ * Could not load the following classes:
+ *  android.view.View
+ *  android.webkit.WebView
  */
 package com.growingio.android.sdk.collection;
 
-import com.growingio.android.sdk.b.n;
-import com.growingio.android.sdk.circle.j;
-import com.growingio.android.sdk.collection.VdsJsHelper;
-import com.growingio.android.sdk.collection.VdsJsHelper$VdsBridge;
+import android.view.View;
+import android.webkit.WebView;
+import com.growingio.android.sdk.b.i;
+import com.growingio.android.sdk.collection.ak;
+import com.growingio.android.sdk.collection.al;
 
 class am
 implements Runnable {
-    final /* synthetic */ j a;
-    final /* synthetic */ n b;
-    final /* synthetic */ VdsJsHelper.VdsBridge c;
+    final /* synthetic */ i a;
+    final /* synthetic */ al b;
 
-    am(VdsJsHelper.VdsBridge vdsBridge, j j2, n n2) {
-        this.c = vdsBridge;
-        this.a = j2;
-        this.b = n2;
+    am(al al2, i i2) {
+        this.b = al2;
+        this.a = i2;
     }
 
     @Override
     public void run() {
-        this.a.a(this.b);
+        ((WebView)this.a.c).loadUrl(ak.a(this.b.a));
     }
 }
 

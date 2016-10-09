@@ -1,22 +1,26 @@
 /*
  * Decompiled with CFR 0_115.
+ * 
+ * Could not load the following classes:
+ *  android.content.DialogInterface
+ *  android.content.DialogInterface$OnClickListener
  */
 package com.growingio.android.sdk.circle;
 
-import com.growingio.android.sdk.circle.j;
-import com.growingio.android.sdk.collection.q;
+import android.content.DialogInterface;
+import com.growingio.android.sdk.circle.ac;
+import com.growingio.android.sdk.circle.k;
 
 class ad
-implements Runnable {
-    final /* synthetic */ j a;
+implements DialogInterface.OnClickListener {
+    final /* synthetic */ ac a;
 
-    ad(j j2) {
-        this.a = j2;
+    ad(ac ac2) {
+        this.a = ac2;
     }
 
-    @Override
-    public void run() {
-        q.d().a("/GioWindow/FloatViewContainer[0]/CircleButton[0]", null, false);
+    public void onClick(DialogInterface dialog, int which) {
+        k.e().k();
     }
 }
 

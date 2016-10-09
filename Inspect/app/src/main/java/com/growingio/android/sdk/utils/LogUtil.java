@@ -10,39 +10,43 @@ import android.util.Log;
 import com.growingio.android.sdk.collection.GConfig;
 
 public class LogUtil {
-    public static void d(String string, String string2) {
-        if (GConfig.a) {
-            Log.d((String)string, (String)string2);
+    public static /* varargs */ void d(String tag, Object ... messages) {
+        if (GConfig.DEBUG) {
+            String string = "";
+            for (Object object : messages) {
+                string = string + object;
+            }
+            Log.d((String)tag, (String)string);
         }
     }
 
-    public static void d(String string, String string2, Throwable throwable) {
-        if (GConfig.a) {
-            Log.d((String)string, (String)string2, (Throwable)throwable);
+    public static void d(String tag, String message, Throwable e2) {
+        if (GConfig.DEBUG) {
+            Log.d((String)tag, (String)message, (Throwable)e2);
         }
     }
 
-    public static void v(String string, String string2) {
-        if (GConfig.a) {
-            Log.v((String)string, (String)string2);
+    public static void v(String tag, String message) {
+        if (GConfig.DEBUG) {
+            Log.v((String)tag, (String)message);
         }
     }
 
-    public static void i(String string, String string2) {
-        if (GConfig.a) {
-            Log.i((String)string, (String)string2);
+    public static void i(String tag, String message) {
+        if (GConfig.DEBUG) {
+            Log.i((String)tag, (String)message);
         }
     }
 
-    public static void e(String string, String string2) {
-        if (GConfig.a) {
-            Log.e((String)string, (String)string2);
+    public static void e(String tag, String message) {
+        if (GConfig.DEBUG) {
+            Log.e((String)tag, (String)message);
         }
     }
 
-    public static void d(Exception exception) {
-        if (GConfig.a) {
-            exception.printStackTrace();
+    public static void d(Throwable e2) {
+        if (GConfig.DEBUG) {
+            e2.printStackTrace();
         }
     }
 }

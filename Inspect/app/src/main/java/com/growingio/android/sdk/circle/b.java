@@ -9,8 +9,8 @@ package com.growingio.android.sdk.circle;
 
 import android.view.View;
 import com.growingio.android.sdk.circle.a;
-import com.growingio.android.sdk.circle.j;
-import com.growingio.android.sdk.collection.q;
+import com.growingio.android.sdk.circle.k;
+import com.growingio.android.sdk.collection.t;
 
 class b
 implements View.OnClickListener {
@@ -20,12 +20,12 @@ implements View.OnClickListener {
         this.a = a2;
     }
 
-    public void onClick(View view) {
+    public void onClick(View v2) {
         this.a.getCircleManager().j();
         this.a.setVisibility(8);
         a.a(this.a).setVisibility(8);
         a.b(this.a).setVisibility(8);
-        q.d().a("CircleModeChooserDialog", null);
+        t.d().a("CircleModeChooserDialog", null);
         a.c(this.a);
     }
 }

@@ -2,27 +2,36 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
- *  android.widget.CompoundButton
- *  android.widget.CompoundButton$OnCheckedChangeListener
+ *  org.json.JSONArray
+ *  org.json.JSONObject
  */
 package com.growingio.android.sdk.circle;
 
-import android.widget.CompoundButton;
-import com.growingio.android.sdk.circle.ar;
-import com.growingio.android.sdk.utils.g;
+import com.growingio.android.sdk.b.i;
+import com.growingio.android.sdk.b.l;
+import com.growingio.android.sdk.circle.HybridEventEditDialog$HybridCircleContent;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 class au
-implements CompoundButton.OnCheckedChangeListener {
-    final /* synthetic */ ar a;
+extends l {
+    final /* synthetic */ JSONArray a;
+    final /* synthetic */ JSONArray b;
+    final /* synthetic */ HybridEventEditDialog$HybridCircleContent c;
 
-    au(ar ar2) {
-        this.a = ar2;
+    au(HybridEventEditDialog$HybridCircleContent hybridCircleContent, JSONArray jSONArray, JSONArray jSONArray2) {
+        this.c = hybridCircleContent;
+        this.a = jSONArray;
+        this.b = jSONArray2;
     }
 
-    public void onCheckedChanged(CompoundButton compoundButton, boolean bl2) {
-        ar.r(this.a).setVisibility(bl2 ? 0 : 8);
-        ar.t(this.a).setVisibility(bl2 && !ar.s(this.a).isChecked() ? 0 : 8);
-        ar.u(this.a).setText((CharSequence)g.a(bl2 ? "growing_label_collapse_text" : "growing_label_expand_text", new Object[0]));
+    @Override
+    public void b(i i2) {
+        if (this.c.a) {
+            this.a.put((Object)i2.e());
+        } else {
+            this.b.put((Object)i2.e());
+        }
     }
 }
 

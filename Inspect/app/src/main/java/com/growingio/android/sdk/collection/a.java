@@ -2,18 +2,20 @@
  * Decompiled with CFR 0_115.
  * 
  * Could not load the following classes:
+ *  android.support.annotation.Nullable
  *  android.util.SparseArray
  *  android.view.View
  */
 package com.growingio.android.sdk.collection;
 
+import android.support.annotation.Nullable;
 import android.util.SparseArray;
 import android.view.View;
 import com.growingio.android.sdk.b.i;
 import com.growingio.android.sdk.b.l;
 import com.growingio.android.sdk.collection.GConfig;
 import com.growingio.android.sdk.collection.b;
-import com.growingio.android.sdk.utils.m;
+import com.growingio.android.sdk.utils.k;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,19 +37,23 @@ public class a {
         this.a = string2;
     }
 
+    @Nullable
     public List a() {
-        this.c = new ArrayList();
-        if (this.d != null && this.d.get() != null) {
-            m.a((View)this.d.get(), this.a, this.g);
-        }
-        ArrayList<com.growingio.android.sdk.b.a> arrayList = new ArrayList<com.growingio.android.sdk.b.a>(2);
-        GConfig gConfig = GConfig.o();
-        if (gConfig.c() && this.c.size() > 0) {
-            com.growingio.android.sdk.b.a a2 = com.growingio.android.sdk.b.a.a();
-            a2.a = this.c;
-            a2.b = this.e;
-            a2.g = this.f;
-            arrayList.add(a2);
+        GConfig gConfig = GConfig.q();
+        ArrayList<com.growingio.android.sdk.b.a> arrayList = null;
+        if (gConfig != null && gConfig.c()) {
+            this.c = new ArrayList();
+            if (this.d != null && this.d.get() != null) {
+                k.a((View)this.d.get(), this.a, this.g);
+            }
+            arrayList = new ArrayList<com.growingio.android.sdk.b.a>(2);
+            if (this.c.size() > 0) {
+                com.growingio.android.sdk.b.a a2 = com.growingio.android.sdk.b.a.a();
+                a2.a = this.c;
+                a2.b = this.e;
+                a2.g = this.f;
+                arrayList.add(a2);
+            }
         }
         return arrayList;
     }

@@ -1,33 +1,34 @@
 /*
  * Decompiled with CFR 0_115.
- * 
- * Could not load the following classes:
- *  android.view.View
- *  android.webkit.WebView
  */
 package com.growingio.android.sdk.circle;
 
-import android.view.View;
-import android.webkit.WebView;
-import com.growingio.android.sdk.b.i;
-import com.growingio.android.sdk.b.l;
-import com.growingio.android.sdk.circle.j;
-import com.growingio.android.sdk.collection.ag;
+import com.growingio.android.sdk.circle.k;
+import com.growingio.android.sdk.collection.an;
+import com.growingio.android.sdk.utils.i;
+import java.util.Collection;
+import java.util.List;
 
 class o
-extends l {
-    final /* synthetic */ j a;
+implements an {
+    final /* synthetic */ k a;
 
-    o(j j2) {
-        this.a = j2;
+    o(k k2) {
+        this.a = k2;
     }
 
     @Override
-    public void b(i i2) {
-        WebView webView;
-        if (i2.c instanceof WebView && ag.a((View)(webView = (WebView)i2.c))) {
-            j.i(this.a);
-            com.growingio.android.sdk.utils.i.a((View)webView, "_vds_hybrid.snapshotAllElements", new Object[0]);
+    public void a(List list) {
+        if (k.e(this.a) != null && k.e(this.a).b() && k.e(this.a).a()) {
+            if (k.f(this.a) != null) {
+                k.f(this.a).addAll(list);
+            } else {
+                k.a(this.a, list);
+            }
+            if (k.g(this.a) == 0) {
+                i.b(k.h(this.a));
+                i.a(k.h(this.a));
+            }
         }
     }
 }
